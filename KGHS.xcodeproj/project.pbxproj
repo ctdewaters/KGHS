@@ -12,6 +12,7 @@
 		B83809AA20FE27CA00A45DF9 /* StaffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809A820FE27CA00A45DF9 /* StaffViewController.swift */; };
 		B83809AC20FE2D0C00A45DF9 /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809AB20FE2D0C00A45DF9 /* Staff.swift */; };
 		B83809B120FE2D6C00A45DF9 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809B020FE2D6C00A45DF9 /* Event.swift */; };
+		B8EC172120FE5D7700B80763 /* PowerSchoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC172020FE5D7700B80763 /* PowerSchoolViewController.swift */; };
 		B8F0CC0D203DC5E800E7405A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F0CC0C203DC5E800E7405A /* AppDelegate.swift */; };
 		B8F0CC14203DC5E800E7405A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8F0CC12203DC5E800E7405A /* Main.storyboard */; };
 		B8F0CC16203DC5E900E7405A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8F0CC15203DC5E900E7405A /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 		B83809A820FE27CA00A45DF9 /* StaffViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaffViewController.swift; sourceTree = "<group>"; };
 		B83809AB20FE2D0C00A45DF9 /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
 		B83809B020FE2D6C00A45DF9 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		B8EC172020FE5D7700B80763 /* PowerSchoolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerSchoolViewController.swift; sourceTree = "<group>"; };
 		B8F0CC09203DC5E800E7405A /* KGHS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KGHS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8F0CC0C203DC5E800E7405A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B8F0CC13203DC5E800E7405A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			children = (
 				B83809A720FE27CA00A45DF9 /* EventsViewController.swift */,
 				B83809A820FE27CA00A45DF9 /* StaffViewController.swift */,
+				B8EC172020FE5D7700B80763 /* PowerSchoolViewController.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			files = (
 				B8F0CC0D203DC5E800E7405A /* AppDelegate.swift in Sources */,
 				B83809AA20FE27CA00A45DF9 /* StaffViewController.swift in Sources */,
+				B8EC172120FE5D7700B80763 /* PowerSchoolViewController.swift in Sources */,
 				B83809AC20FE2D0C00A45DF9 /* Staff.swift in Sources */,
 				B83809A920FE27CA00A45DF9 /* EventsViewController.swift in Sources */,
 				B83809B120FE2D6C00A45DF9 /* Event.swift in Sources */,
