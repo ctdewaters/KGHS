@@ -44,3 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+//MARK : - UIColor Extension.
+extension UIColor {
+    static let blueTheme = UIColor(red:39/255.0, green:55/255.0, blue:164/255.0, alpha: 1)
+    static let yellowTheme = UIColor(red:241/255.0, green:229/255.0, blue:76/255.0, alpha: 1)
+}

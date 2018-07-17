@@ -19,6 +19,15 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.tabBarController?.tabBar.barStyle = .default
+        self.tabBarController?.tabBar.tintColor = .blueTheme
+        UIApplication.shared.statusBarStyle = .default
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

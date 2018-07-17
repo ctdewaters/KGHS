@@ -28,6 +28,15 @@ class PowerSchoolViewController: UIViewController, WKNavigationDelegate {
         self.webView.load(request)
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.tabBarController?.tabBar.barStyle = .default
+        self.tabBarController?.tabBar.tintColor = .blueTheme
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
     //MARK: - `WKNavigationDelegate`.
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         decisionHandler(.allow)

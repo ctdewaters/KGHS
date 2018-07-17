@@ -27,6 +27,14 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         self.reload()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.tabBarController?.tabBar.barStyle = .black
+        self.tabBarController?.tabBar.tintColor = .yellowTheme
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
