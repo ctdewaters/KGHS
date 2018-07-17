@@ -13,6 +13,9 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     //MARK: - IBOutlets.
     @IBOutlet weak var collectionView: UICollectionView!
     
+    //MARK: - Properties.
+    private var fetchedStaff = [Staff]()
+    
     //MARK: - `UIViewController` overrides.
     override func viewDidLoad() {
         super.viewDidLoad()
