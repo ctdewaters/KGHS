@@ -84,7 +84,7 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     //Cell size.
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height: CGFloat = 95
+        let height: CGFloat = 70
         var width: CGFloat = 0
         //If the device is in landscape, or the device is an iPad, size cells in two columns.
         if !self.isPortrait || UIDevice.current.userInterfaceIdiom == .pad {

@@ -26,6 +26,8 @@ class StaffCollectionViewCell: UICollectionViewCell {
         self.unhighlight()
     }
     
+    var unhighlightedBackgroundColor: UIColor?
+    
     //MARK: - Setup.
     ///Sets up the cell with a staff member.
     func setup(withStaffMember staffMember: Staff) {
@@ -35,19 +37,21 @@ class StaffCollectionViewCell: UICollectionViewCell {
         if let organization = staffMember.organization {
             organizationLabelText += " • \(organization)"
         }
+        
+        self.unhighlightedBackgroundColor = self.backgroundShadowView.backgroundColor
     }
     
     ///MARK: - Highlighting.
     ///Highlights the cell.
     func highlight() {
-        self.backgroundShadowView.alpha = 0.7
+        self.backgroundShadowView.backgroundColor = .black
         self.backgroundShadowView.layer.cornerRadius = 15
         self.layer.shadowOpacity = 0
     }
     
     ///Unhighlights the cell.
     func unhighlight() {
-        self.backgroundShadowView.alpha = 1
+        self.backgroundShadowView.backgroundColor = self.unhighlightedBackgroundColor
         self.backgroundShadowView.layer.cornerRadius = 15
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 4)
