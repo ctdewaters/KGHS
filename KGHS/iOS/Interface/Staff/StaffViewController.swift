@@ -24,8 +24,7 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        self.collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+
         self.reload()
     }
     
@@ -119,7 +118,7 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return section == 0 ? 0 : 15
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
     //MARK: - Portrait detection.
