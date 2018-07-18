@@ -38,6 +38,8 @@ class StaffCollectionViewCell: UICollectionViewCell {
             organizationLabelText += " • \(organization)"
         }
         
+        self.organizationLabel.text = organizationLabelText
+        
         self.unhighlightedBackgroundColor = self.backgroundShadowView.backgroundColor
     }
     
