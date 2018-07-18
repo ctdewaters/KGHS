@@ -23,7 +23,8 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.collectionView.contentInset.top = 15
+        self.collectionView.contentInset.top = 10
+        self.collectionView.contentInset.bottom = 10
         
         self.reload()
     }

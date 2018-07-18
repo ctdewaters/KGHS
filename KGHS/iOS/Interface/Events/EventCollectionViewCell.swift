@@ -15,6 +15,7 @@ class EventCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var categoryImageView: UIImageView!
     @IBOutlet weak var calendarLabel: UILabel!
     @IBOutlet weak var backgroundShadowView: UIView!
+    @IBOutlet weak var dateLabel: UILabel!
     
     
     //MARK: - `UICollectionViewCell` overrides.
@@ -31,6 +32,13 @@ class EventCollectionViewCell: UICollectionViewCell {
     func setup(withEvent event: Event) {
         self.titleLabel.text = event.calendarEvent?.eventSummary ?? "No Title"
         self.categoryImageView.image = event.subCategory?.icon ?? ((event.category == .athletics) ? UIImage(named: "athletics") : UIImage(named: "academics"))
+        
+        //Date.
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        self.dateLabel.text = dateFormatter.string(from: event.calendarEvent?.eventStartDate ?? Date())
+        
         var calendarLabelText = event.category.displayTitle
         
         if let subCategory = event.subCategory {
