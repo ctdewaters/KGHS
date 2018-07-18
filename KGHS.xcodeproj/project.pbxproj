@@ -7,11 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4994AEFCEA7838B3109A454C /* Pods_KGHS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D2A33CB5D32F854C45C9CD9 /* Pods_KGHS.framework */; };
 		B83809A920FE27CA00A45DF9 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809A720FE27CA00A45DF9 /* EventsViewController.swift */; };
 		B83809AA20FE27CA00A45DF9 /* StaffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809A820FE27CA00A45DF9 /* StaffViewController.swift */; };
 		B83809AC20FE2D0C00A45DF9 /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809AB20FE2D0C00A45DF9 /* Staff.swift */; };
 		B83809B120FE2D6C00A45DF9 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809B020FE2D6C00A45DF9 /* Event.swift */; };
+		B8D4895220FF6A4B00655A25 /* MXLCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4894820FF6A4B00655A25 /* MXLCalendarManager.m */; };
+		B8D4895320FF6A4B00655A25 /* MXLCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4894A20FF6A4B00655A25 /* MXLCalendar.m */; };
+		B8D4895420FF6A4B00655A25 /* NSTimeZone+ProperAbbreviation.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4894C20FF6A4B00655A25 /* NSTimeZone+ProperAbbreviation.m */; };
+		B8D4895520FF6A4B00655A25 /* MXLCalendarAttendee.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4894D20FF6A4B00655A25 /* MXLCalendarAttendee.m */; };
+		B8D4895620FF6A4B00655A25 /* MXLCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4895020FF6A4B00655A25 /* MXLCalendarEvent.m */; };
+		B8D4895C20FF783800655A25 /* EventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4895B20FF783800655A25 /* EventCollectionViewCell.swift */; };
 		B8EC172120FE5D7700B80763 /* PowerSchoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC172020FE5D7700B80763 /* PowerSchoolViewController.swift */; };
 		B8F0CC0D203DC5E800E7405A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F0CC0C203DC5E800E7405A /* AppDelegate.swift */; };
 		B8F0CC14203DC5E800E7405A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8F0CC12203DC5E800E7405A /* Main.storyboard */; };
@@ -20,12 +25,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3845754DD22ECC39628981FE /* Pods-KGHS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KGHS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KGHS/Pods-KGHS.release.xcconfig"; sourceTree = "<group>"; };
 		4D2A33CB5D32F854C45C9CD9 /* Pods_KGHS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KGHS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B83809A720FE27CA00A45DF9 /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		B83809A820FE27CA00A45DF9 /* StaffViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaffViewController.swift; sourceTree = "<group>"; };
 		B83809AB20FE2D0C00A45DF9 /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
 		B83809B020FE2D6C00A45DF9 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		B8D4894820FF6A4B00655A25 /* MXLCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendarManager.m; sourceTree = "<group>"; };
+		B8D4894920FF6A4B00655A25 /* MXLCalendarAttendee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendarAttendee.h; sourceTree = "<group>"; };
+		B8D4894A20FF6A4B00655A25 /* MXLCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendar.m; sourceTree = "<group>"; };
+		B8D4894B20FF6A4B00655A25 /* MXLCalendarEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendarEvent.h; sourceTree = "<group>"; };
+		B8D4894C20FF6A4B00655A25 /* NSTimeZone+ProperAbbreviation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimeZone+ProperAbbreviation.m"; sourceTree = "<group>"; };
+		B8D4894D20FF6A4B00655A25 /* MXLCalendarAttendee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendarAttendee.m; sourceTree = "<group>"; };
+		B8D4894E20FF6A4B00655A25 /* MXLCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendarManager.h; sourceTree = "<group>"; };
+		B8D4894F20FF6A4B00655A25 /* NSTimeZone+ProperAbbreviation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimeZone+ProperAbbreviation.h"; sourceTree = "<group>"; };
+		B8D4895020FF6A4B00655A25 /* MXLCalendarEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendarEvent.m; sourceTree = "<group>"; };
+		B8D4895120FF6A4B00655A25 /* MXLCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendar.h; sourceTree = "<group>"; };
+		B8D4895720FF6A6300655A25 /* KGHSBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KGHSBridgingHeader.h; sourceTree = "<group>"; };
+		B8D4895B20FF783800655A25 /* EventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCollectionViewCell.swift; sourceTree = "<group>"; };
 		B8EC172020FE5D7700B80763 /* PowerSchoolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerSchoolViewController.swift; sourceTree = "<group>"; };
 		B8F0CC09203DC5E800E7405A /* KGHS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KGHS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8F0CC0C203DC5E800E7405A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -33,7 +49,6 @@
 		B8F0CC15203DC5E900E7405A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8F0CC18203DC5E900E7405A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B8F0CC1A203DC5E900E7405A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC88CFDE3E77D64D8865D962 /* Pods-KGHS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KGHS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KGHS/Pods-KGHS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,22 +56,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4994AEFCEA7838B3109A454C /* Pods_KGHS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1AF5987FE05C4A2E645073E1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				CC88CFDE3E77D64D8865D962 /* Pods-KGHS.debug.xcconfig */,
-				3845754DD22ECC39628981FE /* Pods-KGHS.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		41D209786E1E713439140C7C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -77,7 +82,7 @@
 		B83809AE20FE2D1500A45DF9 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				B83809A720FE27CA00A45DF9 /* EventsViewController.swift */,
+				B8D4895A20FF782500655A25 /* Events */,
 				B83809A820FE27CA00A45DF9 /* StaffViewController.swift */,
 				B8EC172020FE5D7700B80763 /* PowerSchoolViewController.swift */,
 			);
@@ -93,9 +98,45 @@
 				B8F0CC12203DC5E800E7405A /* Main.storyboard */,
 				B8F0CC17203DC5E900E7405A /* LaunchScreen.storyboard */,
 				B8F0CC15203DC5E900E7405A /* Assets.xcassets */,
+				B8D4895720FF6A6300655A25 /* KGHSBridgingHeader.h */,
+				B8D4894420FF6A0B00655A25 /* Frameworks */,
 				B8F0CC1A203DC5E900E7405A /* Info.plist */,
 			);
 			path = iOS;
+			sourceTree = "<group>";
+		};
+		B8D4894420FF6A0B00655A25 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B8D4894720FF6A4B00655A25 /* MXLCalendarManager */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		B8D4894720FF6A4B00655A25 /* MXLCalendarManager */ = {
+			isa = PBXGroup;
+			children = (
+				B8D4894820FF6A4B00655A25 /* MXLCalendarManager.m */,
+				B8D4894920FF6A4B00655A25 /* MXLCalendarAttendee.h */,
+				B8D4894A20FF6A4B00655A25 /* MXLCalendar.m */,
+				B8D4894B20FF6A4B00655A25 /* MXLCalendarEvent.h */,
+				B8D4894C20FF6A4B00655A25 /* NSTimeZone+ProperAbbreviation.m */,
+				B8D4894D20FF6A4B00655A25 /* MXLCalendarAttendee.m */,
+				B8D4894E20FF6A4B00655A25 /* MXLCalendarManager.h */,
+				B8D4894F20FF6A4B00655A25 /* NSTimeZone+ProperAbbreviation.h */,
+				B8D4895020FF6A4B00655A25 /* MXLCalendarEvent.m */,
+				B8D4895120FF6A4B00655A25 /* MXLCalendar.h */,
+			);
+			path = MXLCalendarManager;
+			sourceTree = "<group>";
+		};
+		B8D4895A20FF782500655A25 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				B83809A720FE27CA00A45DF9 /* EventsViewController.swift */,
+				B8D4895B20FF783800655A25 /* EventCollectionViewCell.swift */,
+			);
+			path = Events;
 			sourceTree = "<group>";
 		};
 		B8F0CC00203DC5E800E7405A = {
@@ -103,7 +144,6 @@
 			children = (
 				B8F0CC0B203DC5E800E7405A /* KGHS */,
 				B8F0CC0A203DC5E800E7405A /* Products */,
-				1AF5987FE05C4A2E645073E1 /* Pods */,
 				41D209786E1E713439140C7C /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -131,11 +171,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B8F0CC1D203DC5E900E7405A /* Build configuration list for PBXNativeTarget "KGHS" */;
 			buildPhases = (
-				097E12FC2A22B37DCC0A423A /* [CP] Check Pods Manifest.lock */,
 				B8F0CC05203DC5E800E7405A /* Sources */,
 				B8F0CC06203DC5E800E7405A /* Frameworks */,
 				B8F0CC07203DC5E800E7405A /* Resources */,
-				8D03DCCEFAB47B36686B6A29 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -192,56 +230,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		097E12FC2A22B37DCC0A423A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-KGHS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8D03DCCEFAB47B36686B6A29 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-KGHS/Pods-KGHS-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/MXLCalendarManager/MXLCalendarManager.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MXLCalendarManager.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KGHS/Pods-KGHS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		B8F0CC05203DC5E800E7405A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B8F0CC0D203DC5E800E7405A /* AppDelegate.swift in Sources */,
+				B8D4895C20FF783800655A25 /* EventCollectionViewCell.swift in Sources */,
 				B83809AA20FE27CA00A45DF9 /* StaffViewController.swift in Sources */,
+				B8D4895220FF6A4B00655A25 /* MXLCalendarManager.m in Sources */,
+				B8D4895320FF6A4B00655A25 /* MXLCalendar.m in Sources */,
 				B8EC172120FE5D7700B80763 /* PowerSchoolViewController.swift in Sources */,
 				B83809AC20FE2D0C00A45DF9 /* Staff.swift in Sources */,
 				B83809A920FE27CA00A45DF9 /* EventsViewController.swift in Sources */,
 				B83809B120FE2D6C00A45DF9 /* Event.swift in Sources */,
+				B8D4895620FF6A4B00655A25 /* MXLCalendarEvent.m in Sources */,
+				B8D4895420FF6A4B00655A25 /* NSTimeZone+ProperAbbreviation.m in Sources */,
+				B8D4895520FF6A4B00655A25 /* MXLCalendarAttendee.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +388,6 @@
 		};
 		B8F0CC1E203DC5E900E7405A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC88CFDE3E77D64D8865D962 /* Pods-KGHS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -395,6 +399,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.CDWApps.KGHS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/iOS/KGHSBridgingHeader.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -402,7 +408,6 @@
 		};
 		B8F0CC1F203DC5E900E7405A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3845754DD22ECC39628981FE /* Pods-KGHS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -414,6 +419,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.CDWApps.KGHS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/iOS/KGHSBridgingHeader.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
