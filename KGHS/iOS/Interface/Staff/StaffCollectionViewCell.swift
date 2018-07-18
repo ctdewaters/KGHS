@@ -35,7 +35,9 @@ class StaffCollectionViewCell: UICollectionViewCell {
         var organizationLabelText = staffMember.departmentValue?.displayTitle ?? "No Subject"
         
         if let organization = staffMember.organization {
-            organizationLabelText += " • \(organization)"
+            if organization != "" {
+                organizationLabelText += " • \(organization)"
+            }
         }
         
         self.organizationLabel.text = organizationLabelText

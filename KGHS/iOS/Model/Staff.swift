@@ -90,7 +90,7 @@ public class Staff: Codable {
     
     //MARK: - Staff fetching.
     ///The url to the staff fetch script.
-    private static let retrievalURL = URL(string: "https://collindewaters.me/kghs/scripts/retrieveStaff.php?aii")
+    private static let retrievalURL = URL(string: "https://collindewaters.me/kghs/scripts/retrieveStaff.php?iOSRetrieval2")
     
     ///Retrieves all staff members stored in database.
     public class func retrieveAll(withCompletion completion: @escaping ([Staff.Department: [Staff]]?, [Staff.Department]?) -> Void) {
