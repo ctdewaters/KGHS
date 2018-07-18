@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  SecondViewController.swift
 //  KGHS
 //
 //  Created by Collin DeWaters on 2/21/18.
@@ -8,69 +8,78 @@
 
 import UIKit
 
-///`EventsViewController`: View Controller which displays events retrieved from the school's iCal feed, and the user's favorited events.
-class EventsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+///`StaffViewController`: View controller class which displays the school's staff directory, and favorited staff.
+class StaffViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //MARK: - IBOutlets.
     @IBOutlet weak var collectionView: UICollectionView!
     
     //MARK: - Properties.
-    ///The retrieved events to display.
-    var events = [Event]()
-
+    ///The fetched staff dictionary.
+    private var fetchedStaff = [Staff.Department: [Staff]]()
+    
+    ///The array of dictionary keys, in the order to be displayed.
+    private var fetchedStaffKeys = [Staff.Department]()
+    
     //MARK: - `UIViewController` overrides.
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         self.collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        
         self.reload()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        //Apperance setup.
-        self.tabBarController?.tabBar.barStyle = .default
-        self.tabBarController?.tabBar.tintColor = .blueTheme
-        UIApplication.shared.statusBarStyle = .default
+        self.tabBarController?.tabBar.barStyle = .black
+        self.tabBarController?.tabBar.tintColor = .yellowTheme
+        UIApplication.shared.statusBarStyle = .lightContent
     }
-
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     //MARK: - Reloading.
     func reload() {
-        //Retrive the events.
-        Event.retrieve { (retrievedEvents) in
-            //Unwrap the retreived events array.
-            if let retrievedEvents = retrievedEvents {
-                self.events = retrievedEvents
-                self.collectionView.reloadData()
+        Staff.retrieveAll { (serverStaff, serverDepartments) in
+            guard let serverStaff = serverStaff, let serverDepartments = serverDepartments else {
+                self.fetchedStaffKeys.removeAll()
+                self.fetchedStaff.removeAll()
+                return
             }
+            
+            self.fetchedStaff = serverStaff
+            self.fetchedStaffKeys = serverDepartments
+            
+            self.collectionView.reloadData()
         }
     }
-    
-    
+
     //MARK: - `UICollectionView` functions.
     //Number of sections.
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return self.fetchedStaff.keys.count
     }
     
     //Number of cells in a section.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.events.count
+        return self.fetchedStaff[self.fetchedStaffKeys[section]]?.count ?? 0
     }
+    
+    //Header view.
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        return UICollectionReusableView()
+//    }
     
     //Cell setup.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath) as! EventCollectionViewCell
-        cell.setup(withEvent: self.events[indexPath.item])
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "staffCell", for: indexPath) as! StaffCollectionViewCell
+        if let staffMember = self.fetchedStaff[fetchedStaffKeys[indexPath.section]]?[indexPath.item] {
+            cell.setup(withStaffMember: staffMember)
+        }
         return cell
     }
     
@@ -100,13 +109,17 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     //Highlighting.
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! EventCollectionViewCell
+        let cell = collectionView.cellForItem(at: indexPath) as! StaffCollectionViewCell
         cell.highlight()
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! EventCollectionViewCell
+        let cell = collectionView.cellForItem(at: indexPath) as! StaffCollectionViewCell
         cell.unhighlight()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return section == 0 ? 0 : 15
     }
     
     //MARK: - Portrait detection.
@@ -117,5 +130,6 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
         return true
     }
+
 }
 

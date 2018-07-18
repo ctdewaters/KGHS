@@ -31,6 +31,7 @@ class EventCollectionViewCell: UICollectionViewCell {
     ///Sets this cell with an `Event` object.
     func setup(withEvent event: Event) {
         self.titleLabel.text = event.calendarEvent?.eventSummary ?? "No Title"
+        self.categoryImageView.tintColor = .blueTheme
         self.categoryImageView.image = event.subCategory?.icon ?? ((event.category == .athletics) ? UIImage(named: "athletics") : UIImage(named: "academics"))
         
         //Date.
@@ -61,7 +62,7 @@ class EventCollectionViewCell: UICollectionViewCell {
         self.backgroundShadowView.layer.cornerRadius = 15
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 4)
-        self.layer.shadowOpacity = 0.3
+        self.layer.shadowOpacity = 0.2
         self.layer.shadowRadius = 4.0
     }
 }
