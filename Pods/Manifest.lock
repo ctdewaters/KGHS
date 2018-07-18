@@ -1,0 +1,16 @@
+PODS:
+  - MXLCalendarManager (1.0.4)
+
+DEPENDENCIES:
+  - MXLCalendarManager
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - MXLCalendarManager
+
+SPEC CHECKSUMS:
+  MXLCalendarManager: 3432fa4fb369d352f84a0874f69b198de70119ac
+
+PODFILE CHECKSUM: e1a7079b6e152801c0737d796a5fa991409450fe
+
+COCOAPODS: 1.5.3
