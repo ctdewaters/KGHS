@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 ///`StaffViewController`: View controller class which displays the school's staff directory, and favorited staff.
 class StaffViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //MARK: - IBOutlets.
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
     
     //MARK: - Properties.
     ///The fetched staff dictionary.
@@ -24,7 +26,12 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //Setup activity indicator.
+        self.activityIndicator.color = .blueTheme
+        self.activityIndicator.type = .orbit
 
+        //Reload.
         self.reload()
     }
     
@@ -43,10 +50,16 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
 
     //MARK: - Reloading.
     func reload() {
+        //Animate activity indicator.
+        self.activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
+        
         Staff.retrieveAll { (serverStaff, serverDepartments) in
             guard let serverStaff = serverStaff, let serverDepartments = serverDepartments else {
-                self.fetchedStaffKeys.removeAll()
-                self.fetchedStaff.removeAll()
+                //Remove activity indicator.
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+                
                 return
             }
             
@@ -54,6 +67,10 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
             self.fetchedStaffKeys = serverDepartments
             
             self.collectionView.reloadData()
+            
+            //Remove activity indicator.
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
         }
     }
 

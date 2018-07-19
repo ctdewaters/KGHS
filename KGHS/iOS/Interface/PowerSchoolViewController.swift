@@ -8,19 +8,22 @@
 
 import UIKit
 import WebKit
+import NVActivityIndicatorView
 
 ///`PowerSchoolViewController`: displays a webkit view showing the powerschool site.
 class PowerSchoolViewController: UIViewController, WKNavigationDelegate {
 
     //MARK: - IBOutlets.
     @IBOutlet weak var webView: WKWebView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
     
     //MARK: - UIViewController overrides.
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.activityIndicator.type = .orbit
+        self.activityIndicator.color = .blueTheme
         
         self.webView.navigationDelegate = self
         

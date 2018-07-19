@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 ///`EventsViewController`: View Controller which displays events retrieved from the school's iCal feed, and the user's favorited events.
 class EventsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     //MARK: - IBOutlets.
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
     
     //MARK: - Properties.
     ///The retrieved events to display.
@@ -22,6 +24,10 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        //Setup activity indicator.
+        self.activityIndicator.color = .blueTheme
+        self.activityIndicator.type = .orbit
         
         self.collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
@@ -45,12 +51,20 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     //MARK: - Reloading.
     func reload() {
+        //Animate activity indicator.
+        self.activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
+
         //Retrive the events.
         Event.retrieve { (retrievedEvents) in
             //Unwrap the retreived events array.
             if let retrievedEvents = retrievedEvents {
                 self.events = retrievedEvents
                 self.collectionView.reloadData()
+                
+                //Deactivate activity indicator
+                self.activityIndicator.isHidden = true
+                self.activityIndicator.stopAnimating()
             }
         }
     }

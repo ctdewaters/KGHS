@@ -6,7 +6,6 @@ target 'KGHS' do
   use_frameworks!
 
   # Pods for KGHS
-  pod 'MXLCalendarManager'
-  
+  pod 'NVActivityIndicatorView'
 
 end

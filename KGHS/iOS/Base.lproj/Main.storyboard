@@ -106,6 +106,14 @@
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="WYn-6w-XHq"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WKI-h8-ZPT" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="162.66666666666666" y="409.66666666666669" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="pmC-Uu-vdU"/>
+                                    <constraint firstAttribute="height" constant="50" id="qcL-dx-edv"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -113,11 +121,14 @@
                             <constraint firstItem="bx8-w2-5hn" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="adO-Hg-cjO"/>
                             <constraint firstItem="bx8-w2-5hn" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="fIq-A1-dpK"/>
                             <constraint firstAttribute="bottom" secondItem="bx8-w2-5hn" secondAttribute="bottom" id="fkL-V6-qGf"/>
+                            <constraint firstItem="WKI-h8-ZPT" firstAttribute="centerY" secondItem="PQr-Ze-W5v" secondAttribute="centerY" id="mj5-rB-UAv"/>
+                            <constraint firstItem="WKI-h8-ZPT" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="ov7-Gm-3bK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <navigationItem key="navigationItem" title="Calendar" id="or7-D2-qpz"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="WKI-h8-ZPT" id="bmr-ws-768"/>
                         <outlet property="collectionView" destination="bx8-w2-5hn" id="hcf-Mb-uSi"/>
                     </connections>
                 </viewController>
@@ -212,18 +223,29 @@
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="DVd-LF-cEp"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASn-Xb-lXA" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="162.66666666666666" y="409.66666666666669" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Cbl-yU-aQP"/>
+                                    <constraint firstAttribute="width" constant="50" id="olg-3p-4rr"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Gdj-zO-t5J" firstAttribute="top" secondItem="QS5-Rx-YEW" secondAttribute="top" id="GZV-wY-znn"/>
                             <constraint firstAttribute="bottom" secondItem="Gdj-zO-t5J" secondAttribute="bottom" id="HD0-7q-Uff"/>
                             <constraint firstItem="Gdj-zO-t5J" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="Imz-0F-Uls"/>
+                            <constraint firstItem="ASn-Xb-lXA" firstAttribute="centerX" secondItem="O1u-W8-tvY" secondAttribute="centerX" id="Xii-eq-5so"/>
+                            <constraint firstItem="ASn-Xb-lXA" firstAttribute="centerY" secondItem="O1u-W8-tvY" secondAttribute="centerY" id="yIa-Ef-RDU"/>
                             <constraint firstItem="Gdj-zO-t5J" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="yeQ-EX-kyL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Faculty &amp; Staff" id="n5O-U4-8mO"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="ASn-Xb-lXA" id="Vkd-I3-JXm"/>
                         <outlet property="collectionView" destination="Gdj-zO-t5J" id="HH0-6B-IGF"/>
                     </connections>
                 </viewController>
@@ -304,29 +326,29 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="L9G-h0-mgN">
-                                <rect key="frame" x="169" y="387.66666666666669" width="37" height="37"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z0E-Jj-B3w" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="162.66666666666666" y="381" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="37" id="2WU-q9-gJ7"/>
-                                    <constraint firstAttribute="width" constant="37" id="rMV-Vn-BOq"/>
+                                    <constraint firstAttribute="width" constant="50" id="DkB-tK-EpA"/>
+                                    <constraint firstAttribute="height" constant="50" id="U4z-YX-GvL"/>
                                 </constraints>
-                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </activityIndicatorView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="0Bh-E3-9qa" firstAttribute="trailing" secondItem="xnT-zi-0gh" secondAttribute="trailing" id="7ej-4A-ymM"/>
                             <constraint firstItem="0Bh-E3-9qa" firstAttribute="top" secondItem="TN9-hh-fl7" secondAttribute="top" id="8sQ-4f-Kjn"/>
-                            <constraint firstItem="L9G-h0-mgN" firstAttribute="centerY" secondItem="0Bh-E3-9qa" secondAttribute="centerY" id="H64-E2-P9F"/>
+                            <constraint firstItem="Z0E-Jj-B3w" firstAttribute="centerX" secondItem="0Bh-E3-9qa" secondAttribute="centerX" id="cRs-9R-D0K"/>
                             <constraint firstItem="0Bh-E3-9qa" firstAttribute="leading" secondItem="xnT-zi-0gh" secondAttribute="leading" id="cwy-V7-k9E"/>
+                            <constraint firstItem="Z0E-Jj-B3w" firstAttribute="centerY" secondItem="0Bh-E3-9qa" secondAttribute="centerY" id="mp4-X8-8lw"/>
                             <constraint firstAttribute="bottom" secondItem="0Bh-E3-9qa" secondAttribute="bottom" id="nNS-Wg-TNy"/>
-                            <constraint firstItem="L9G-h0-mgN" firstAttribute="centerX" secondItem="0Bh-E3-9qa" secondAttribute="centerX" id="oOD-4o-dVj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xnT-zi-0gh"/>
                     </view>
                     <navigationItem key="navigationItem" title="PowerSchool" id="3bK-QB-3Ol"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="L9G-h0-mgN" id="FG9-Ud-KGH"/>
+                        <outlet property="activityIndicator" destination="Z0E-Jj-B3w" id="fyc-RJ-1cK"/>
                         <outlet property="webView" destination="0Bh-E3-9qa" id="jPA-tz-XCK"/>
                     </connections>
                 </viewController>
@@ -357,7 +379,7 @@
     <resources>
         <image name="academics" width="72" height="72"/>
         <image name="kgSelected" width="25" height="25"/>
-        <image name="kgUnselected" width="16.666666030883789" height="16.666666030883789"/>
+        <image name="kgUnselected" width="25" height="25"/>
         <image name="powerschoolIcon" width="18" height="18"/>
         <image name="second" width="30" height="30"/>
     </resources>

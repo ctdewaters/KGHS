@@ -23,10 +23,12 @@
 		B8F0CC14203DC5E800E7405A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8F0CC12203DC5E800E7405A /* Main.storyboard */; };
 		B8F0CC16203DC5E900E7405A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8F0CC15203DC5E900E7405A /* Assets.xcassets */; };
 		B8F0CC19203DC5E900E7405A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8F0CC17203DC5E900E7405A /* LaunchScreen.storyboard */; };
+		FF3B8EEC6EFA505CD5083CA7 /* Pods_KGHS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D2A33CB5D32F854C45C9CD9 /* Pods_KGHS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4D2A33CB5D32F854C45C9CD9 /* Pods_KGHS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KGHS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		928846966680B56FB16A0466 /* Pods-KGHS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KGHS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KGHS/Pods-KGHS.release.xcconfig"; sourceTree = "<group>"; };
 		B83809A720FE27CA00A45DF9 /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		B83809A820FE27CA00A45DF9 /* StaffViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaffViewController.swift; sourceTree = "<group>"; };
 		B83809AB20FE2D0C00A45DF9 /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
@@ -51,6 +53,7 @@
 		B8F0CC15203DC5E900E7405A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8F0CC18203DC5E900E7405A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B8F0CC1A203DC5E900E7405A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3AA21DEF6A5A046C588EA7A /* Pods-KGHS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KGHS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KGHS/Pods-KGHS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF3B8EEC6EFA505CD5083CA7 /* Pods_KGHS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +74,15 @@
 				4D2A33CB5D32F854C45C9CD9 /* Pods_KGHS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8BBA16681650211E0D89B398 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E3AA21DEF6A5A046C588EA7A /* Pods-KGHS.debug.xcconfig */,
+				928846966680B56FB16A0466 /* Pods-KGHS.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		B83809AD20FE2D0F00A45DF9 /* Model */ = {
@@ -156,6 +169,7 @@
 				B8F0CC0B203DC5E800E7405A /* KGHS */,
 				B8F0CC0A203DC5E800E7405A /* Products */,
 				41D209786E1E713439140C7C /* Frameworks */,
+				8BBA16681650211E0D89B398 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -182,9 +196,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B8F0CC1D203DC5E900E7405A /* Build configuration list for PBXNativeTarget "KGHS" */;
 			buildPhases = (
+				4826E8A9CF9E96FA06F5B893 /* [CP] Check Pods Manifest.lock */,
 				B8F0CC05203DC5E800E7405A /* Sources */,
 				B8F0CC06203DC5E800E7405A /* Frameworks */,
 				B8F0CC07203DC5E800E7405A /* Resources */,
+				D15160EED1A352843278E692 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -240,6 +256,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4826E8A9CF9E96FA06F5B893 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KGHS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D15160EED1A352843278E692 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-KGHS/Pods-KGHS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KGHS/Pods-KGHS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B8F0CC05203DC5E800E7405A /* Sources */ = {
@@ -400,6 +455,7 @@
 		};
 		B8F0CC1E203DC5E900E7405A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E3AA21DEF6A5A046C588EA7A /* Pods-KGHS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -420,6 +476,7 @@
 		};
 		B8F0CC1F203DC5E900E7405A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 928846966680B56FB16A0466 /* Pods-KGHS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
