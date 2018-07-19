@@ -42,7 +42,7 @@ class Event {
         case VFB, JVFB, Golf, FH, JVBBSB, VBBSB, BSoccer, GSoccer, BTennis, GTennis, Track, VB, Graduation, Faculty, DepartmentChair, FBLA, DECA, Band, Chorus, SOL, AP, Theatre, BBB, GBB
         
         ///The athletics subcategories.
-        static let athletics: [SubCategory] = [.JVFB, .VFB, .Golf, .FH, .JVBBSB, .VBBSB, .BSoccer, .GSoccer, .BTennis, .GTennis, .Track, .VB]
+        static let athletics: [SubCategory] = [.JVFB, .VFB, .Golf, .FH, .JVBBSB, .VBBSB, .BSoccer, .GSoccer, .BTennis, .GTennis, .Track, .VB, .BBB, .GBB]
         
         ///The academic subcategories.
         static let academics: [SubCategory] = [.Graduation, .Faculty, .DepartmentChair, .FBLA, .DECA, .Band, .Chorus, .SOL, .AP, .Theatre]
@@ -125,7 +125,7 @@ class Event {
     
     //MARK: - Retrieval.
     ///The url to the school's ICS feed.
-    private static let icsURL = URL(string: "https://www.calendarwiz.com/CalendarWiz_iCal.php?crd=kgcs&ical_days_ahead=365")
+    private static let icsURL = URL(string: "https://www.calendarwiz.com/CalendarWiz_iCal.php?crd=kgcs&ical_days_ahead=365&cid[]=132859&cid[]=133033")
     
     ///Retrieves all events currently in the school's ICS feed.
     public class func retrieve(allEventsWithCompletion completion: @escaping ([Event]?)->Void) {
