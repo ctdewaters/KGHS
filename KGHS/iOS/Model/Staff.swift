@@ -133,7 +133,7 @@ public class Staff: Codable {
                         
                         //Sort staff departments alphabetically.
                         staffDepartments = staffDepartments.sorted {
-                            return $0.displayTitle > $1.displayTitle
+                            return $0.displayTitle < $1.displayTitle
                         }
                         //Run completion block.
                         DispatchQueue.main.async {

@@ -10,7 +10,7 @@ import UIKit
 import NVActivityIndicatorView
 
 ///`EventsViewController`: View Controller which displays events retrieved from the school's iCal feed, and the user's favorited events.
-class EventsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class EventsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
     //MARK: - IBOutlets.
     @IBOutlet weak var collectionView: UICollectionView!
@@ -19,6 +19,15 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     //MARK: - Properties.
     ///The retrieved events to display.
     var events = [Event]()
+    
+    ///The filtered search events to display.
+    var filteredSearchEvents = [Event]()
+    
+    ///If true, the user is currently searching events.
+    var isSearching: Bool = false
+    
+    ///The search controller.
+    var searchController: UISearchController?
 
     //MARK: - `UIViewController` overrides.
     override func viewDidLoad() {
@@ -31,12 +40,38 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         self.collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
+        //Setup the search controller.
+        self.searchController = UISearchController(searchResultsController: nil)
+        self.searchController?.dimsBackgroundDuringPresentation = false
+        self.searchController?.searchBar.tintColor = .blueTheme
+        self.searchController?.searchBar.delegate = self
+        self.navigationItem.searchController = self.searchController
+        
+        //Reload.
         self.reload()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //Navigation bar setup.
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = nil
+        self.navigationController?.navigationBar.isTranslucent = true
+        
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        self.searchController?.hidesNavigationBarDuringPresentation = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        //Reset navigation bar.
+        self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+        self.hideHairline()
+        
+        self.navigationItem.hidesSearchBarWhenScrolling = true
+
         //Apperance setup.
         self.tabBarController?.tabBar.barStyle = .default
         self.tabBarController?.tabBar.tintColor = .blueTheme
@@ -78,13 +113,13 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     //Number of cells in a section.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.events.count
+        return self.isSearching ? self.filteredSearchEvents.count : self.events.count
     }
     
     //Cell setup.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath) as! EventCollectionViewCell
-        cell.setup(withEvent: self.events[indexPath.item])
+        cell.setup(withEvent: self.isSearching ? self.filteredSearchEvents[indexPath.item] : self.events[indexPath.item])
         return cell
     }
     
@@ -121,6 +156,63 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! EventCollectionViewCell
         cell.unhighlight()
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        //Resign search bar first responder.
+        self.searchController?.searchBar.resignFirstResponder()
+    }
+    
+    //MARK: - `UISearchBarDelegate`
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        //Set `isSearching` to true.
+        self.isSearching = true
+        
+        let searchBarText = searchBar.text ?? ""
+        DispatchQueue.global(qos: .background).async {
+            self.filteredSearchEvents = self.filterEvents(withSearchText: searchBarText)
+            
+            //Reload collection view in main thread.
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        //Set `isSearching` to false.
+        self.isSearching = false
+        
+        //Remove all events from the filtered search events array.
+        self.filteredSearchEvents.removeAll()
+        
+        //Reload collection view data.
+        self.collectionView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //Run in background thread.
+        DispatchQueue.global(qos: .background).async {
+            self.filteredSearchEvents = self.filterEvents(withSearchText: searchText)
+            
+            //Reload collection view in main thread.
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    //MARK: - Event filtering.
+    private func filterEvents(withSearchText searchText: String) -> [Event] {
+        //If search text contains no characters, show all events.
+        if searchText == "" {
+            return self.events
+        }
+        
+        let lowercasedSearchText = searchText.lowercased()
+        return self.events.filter {
+            ($0.calendarEvent?.eventSummary?.lowercased().contains(lowercasedSearchText) ?? false) || ($0.calendarEvent?.eventDescription?.lowercased().contains(lowercasedSearchText) ?? false) || ($0.subCategory?.displayTitle.lowercased().contains(lowercasedSearchText) ?? false) || ($0.category.displayTitle.lowercased().contains(lowercasedSearchText))
+        }
     }
     
     //MARK: - Portrait detection.

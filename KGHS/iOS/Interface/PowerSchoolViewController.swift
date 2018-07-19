@@ -31,10 +31,16 @@ class PowerSchoolViewController: UIViewController, WKNavigationDelegate {
         self.webView.load(request)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //Navigation bar setup.
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        //Setup tab bar and status bar.
         self.tabBarController?.tabBar.barStyle = .default
         self.tabBarController?.tabBar.tintColor = .blueTheme
         UIApplication.shared.statusBarStyle = .default

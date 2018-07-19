@@ -18,6 +18,7 @@
 		B8D4895620FF6A4B00655A25 /* MXLCalendarEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4895020FF6A4B00655A25 /* MXLCalendarEvent.m */; };
 		B8D4895C20FF783800655A25 /* EventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4895B20FF783800655A25 /* EventCollectionViewCell.swift */; };
 		B8D4896020FF877A00655A25 /* StaffCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4895F20FF877A00655A25 /* StaffCollectionViewCell.swift */; };
+		B8D48962210109B100655A25 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D48961210109B100655A25 /* MoreViewController.swift */; };
 		B8EC172120FE5D7700B80763 /* PowerSchoolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC172020FE5D7700B80763 /* PowerSchoolViewController.swift */; };
 		B8F0CC0D203DC5E800E7405A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F0CC0C203DC5E800E7405A /* AppDelegate.swift */; };
 		B8F0CC14203DC5E800E7405A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8F0CC12203DC5E800E7405A /* Main.storyboard */; };
@@ -46,6 +47,7 @@
 		B8D4895720FF6A6300655A25 /* KGHSBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KGHSBridgingHeader.h; sourceTree = "<group>"; };
 		B8D4895B20FF783800655A25 /* EventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCollectionViewCell.swift; sourceTree = "<group>"; };
 		B8D4895F20FF877A00655A25 /* StaffCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffCollectionViewCell.swift; sourceTree = "<group>"; };
+		B8D48961210109B100655A25 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		B8EC172020FE5D7700B80763 /* PowerSchoolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerSchoolViewController.swift; sourceTree = "<group>"; };
 		B8F0CC09203DC5E800E7405A /* KGHS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KGHS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8F0CC0C203DC5E800E7405A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				B8D4895A20FF782500655A25 /* Events */,
 				B8D4895E20FF876A00655A25 /* Staff */,
 				B8EC172020FE5D7700B80763 /* PowerSchoolViewController.swift */,
+				B8D48963210109B400655A25 /* More */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -161,6 +164,14 @@
 				B8D4895F20FF877A00655A25 /* StaffCollectionViewCell.swift */,
 			);
 			path = Staff;
+			sourceTree = "<group>";
+		};
+		B8D48963210109B400655A25 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				B8D48961210109B100655A25 /* MoreViewController.swift */,
+			);
+			path = More;
 			sourceTree = "<group>";
 		};
 		B8F0CC00203DC5E800E7405A = {
@@ -308,6 +319,7 @@
 				B8D4895220FF6A4B00655A25 /* MXLCalendarManager.m in Sources */,
 				B8D4895320FF6A4B00655A25 /* MXLCalendar.m in Sources */,
 				B8EC172120FE5D7700B80763 /* PowerSchoolViewController.swift in Sources */,
+				B8D48962210109B100655A25 /* MoreViewController.swift in Sources */,
 				B83809AC20FE2D0C00A45DF9 /* Staff.swift in Sources */,
 				B83809A920FE27CA00A45DF9 /* EventsViewController.swift in Sources */,
 				B83809B120FE2D6C00A45DF9 /* Event.swift in Sources */,

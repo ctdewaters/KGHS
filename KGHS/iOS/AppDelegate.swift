@@ -49,3 +49,34 @@ extension UIColor {
     static let blueTheme = UIColor(red:39/255.0, green:55/255.0, blue:164/255.0, alpha: 1)
     static let yellowTheme = UIColor(red:241/255.0, green:229/255.0, blue:76/255.0, alpha: 1)
 }
+
+//MARK: - UIViewController extension.
+public extension UIViewController {
+    public func hideHairline() {
+        self.findHairline()?.isHidden = true
+        self.findTabBarHairline()?.isHidden = true
+    }
+    
+    public func showHairline() {
+        self.findHairline()?.isHidden = false
+        self.findTabBarHairline()?.isHidden = false
+    }
+    
+    private func findHairline() -> UIImageView? {
+        return navigationController?.navigationBar.subviews
+            .flatMap { $0.subviews }
+            .flatMap { $0 as? UIImageView }
+            .filter { $0.bounds.size.width == self.navigationController?.navigationBar.bounds.size.width }
+            .filter { $0.bounds.size.height <= 2 }
+            .first
+    }
+    
+    private func findTabBarHairline() -> UIImageView? {
+        return tabBarController?.tabBar.subviews
+            .flatMap { $0.subviews }
+            .flatMap { $0 as? UIImageView }
+            .filter { $0.bounds.size.width == self.navigationController?.navigationBar.bounds.size.width }
+            .filter { $0.bounds.size.height <= 2 }
+            .first
+    }
+}

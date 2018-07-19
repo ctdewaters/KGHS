@@ -18,7 +18,7 @@ class Event {
     
     ///The category of this event.
     public var category: Category {
-        return ((self.calendarEvent?.eventCategory ?? "nil") == "KGHS Athletics") ? .athletics : .kghs
+        return ((self.calendarEvent?.eventCategory ?? "nil") == "KGHS Athletics") ? .athletics : ((self.calendarEvent?.eventCategory ?? "nil") == "King George High") ? .kghs : .extraneous
     }
     
     ///The subcategory of this event.
@@ -26,23 +26,23 @@ class Event {
     
     ///`Event.Category`: represents the category this event came from.
     public enum Category {
-        case kghs, athletics
+        case kghs, athletics, extraneous
         
         ///The title to display for this category.
         public var displayTitle: String {
-            if self == .kghs {
-                return "Academics"
+            if self == .athletics {
+                return "Athletics"
             }
-            return "Athletics"
+            return "Academics"
         }
     }
     
     ///`Event.SubCategory`: represents a sub category this event belongs to, based on keywords.
     public enum SubCategory: String {
-        case VFB, JVFB, Golf, FH, VBBSB, JVBBSB, BSoccer, GSoccer, BTennis, GTennis, Track, VB, Graduation, Faculty, DepartmentChair, FBLA, DECA, Band, Chorus, SOL, AP, Theatre
+        case VFB, JVFB, Golf, FH, JVBBSB, VBBSB, BSoccer, GSoccer, BTennis, GTennis, Track, VB, Graduation, Faculty, DepartmentChair, FBLA, DECA, Band, Chorus, SOL, AP, Theatre, BBB, GBB
         
         ///The athletics subcategories.
-        static let athletics: [SubCategory] = [.VFB, .JVFB, .Golf, .FH, .VBBSB, .JVBBSB, .BSoccer, .GSoccer, .BTennis, .GTennis, .Track, .VB]
+        static let athletics: [SubCategory] = [.JVFB, .VFB, .Golf, .FH, .JVBBSB, .VBBSB, .BSoccer, .GSoccer, .BTennis, .GTennis, .Track, .VB]
         
         ///The academic subcategories.
         static let academics: [SubCategory] = [.Graduation, .Faculty, .DepartmentChair, .FBLA, .DECA, .Band, .Chorus, .SOL, .AP, .Theatre]
@@ -70,6 +70,21 @@ class Event {
                 return "Volleyball"
             case .DepartmentChair :
                 return "Department Chair"
+            case .BBB :
+                return "Boys Basketball"
+            case .GBB :
+                return "Girls Basketball"
+            default :
+                return self.rawValue
+            }
+        }
+        
+        public var searchTerm: String {
+            switch self {
+            case .VBBSB :
+                return "V BB/SB"
+            case .JVBBSB :
+                return "JV BB/SB"
             default :
                 return self.rawValue
             }
@@ -110,7 +125,7 @@ class Event {
     
     //MARK: - Retrieval.
     ///The url to the school's ICS feed.
-    private static let icsURL = URL(string: "https://www.calendarwiz.com/CalendarWiz_iCal.php?crd=kgcs&limit=1000")
+    private static let icsURL = URL(string: "https://www.calendarwiz.com/CalendarWiz_iCal.php?crd=kgcs&ical_days_ahead=365")
     
     ///Retrieves all events currently in the school's ICS feed.
     public class func retrieve(allEventsWithCompletion completion: @escaping ([Event]?)->Void) {
@@ -138,7 +153,10 @@ class Event {
                             var events = [Event]()
                             //Process mxl calendar events.
                             for mxlEvent in calendar.events as! [MXLCalendarEvent] {
-                                events.append(Event.process(from: mxlEvent))
+                                let processedEvent = Event.process(from: mxlEvent)
+                                if processedEvent.category != .extraneous {
+                                    events.append(processedEvent)
+                                }
                             }
                             //Run the completion block.
                             DispatchQueue.main.async {
@@ -172,8 +190,9 @@ class Event {
         if self.category == .kghs {
             //Academic event, search through academic subcategories.
             for sCategory in SubCategory.academics {
-                if self.calendarEvent?.eventSummary.contains(sCategory.rawValue) ?? false {
+                if self.calendarEvent?.eventSummary.contains(sCategory.searchTerm) ?? false {
                     self.subCategory = sCategory
+                    self.calendarEvent?.eventSummary = self.calendarEvent?.eventSummary.replacingOccurrences(of: sCategory.searchTerm, with: sCategory.displayTitle)
                     return
                 }
             }
@@ -181,8 +200,9 @@ class Event {
         else {
             //Athletic event, search through athletic subcategories.
             for sCategory in SubCategory.athletics {
-                if self.calendarEvent?.eventSummary.contains(sCategory.rawValue) ?? false {
+                if self.calendarEvent?.eventSummary.contains(sCategory.searchTerm) ?? false {
                     self.subCategory = sCategory
+                    self.calendarEvent?.eventSummary = self.calendarEvent?.eventSummary.replacingOccurrences(of: sCategory.searchTerm, with: sCategory.displayTitle)
                     return
                 }
             }
