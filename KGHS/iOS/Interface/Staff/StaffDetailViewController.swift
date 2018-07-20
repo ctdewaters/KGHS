@@ -33,6 +33,8 @@ class StaffDetailViewController: UIViewController {
         
         //Set up UI with the staff member property.
         self.nameLabel.text = self.staffMember?.name ?? "No Name"
+        
+        //Dpeartment label.
         var departmentLabelText = self.staffMember?.departmentValue?.displayTitle ?? "No Subject"
         if let organization = self.staffMember?.organization {
             if organization != "" {
@@ -41,9 +43,13 @@ class StaffDetailViewController: UIViewController {
         }
         self.departmentLabel.text = departmentLabelText
 
+        //Icon image view.
         self.iconImageView.image = UIImage(named: "kghsLogo")
         self.iconImageView.layer.cornerRadius = 15
         self.iconImageView.backgroundColor = .lightGray
+        
+        //Favorite button.
+        self.favoriteButton.image = (self.staffMember?.isFavorited ?? false) ? UIImage(named: "favoriteFilled") : UIImage(named: "favoriteEmpty")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,6 +94,23 @@ class StaffDetailViewController: UIViewController {
     
     //MARK: - IBActions.
     @IBAction func favorite(_ sender: Any) {
+        guard let staffMember = self.staffMember else {
+            return
+        }
         
+        self.favoriteButton.image = staffMember.isFavorited ?  UIImage(named: "favoriteEmpty") : UIImage(named: "favoriteFilled")
+        
+        DispatchQueue.global(qos: .background).async {
+            staffMember.favorite()
+            //Update global staff view controller favorited staff array.
+            var filteredFavoriteStaff = [Staff]()
+            for key in StaffViewController.global!.fetchedStaffKeys {
+                let staffArray = StaffViewController.global!.fetchedStaff[key]!
+                filteredFavoriteStaff.append(contentsOf: staffArray.filter {
+                    $0.isFavorited
+                })
+            }
+            StaffViewController.global?.favoritedStaff = filteredFavoriteStaff
+        }
     }
 }

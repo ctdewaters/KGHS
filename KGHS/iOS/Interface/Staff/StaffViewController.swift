@@ -17,10 +17,13 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     //MARK: - Properties.
     ///The fetched staff dictionary.
-    private var fetchedStaff = [Staff.Department: [Staff]]()
+    var fetchedStaff = [Staff.Department: [Staff]]()
     
     ///The array of dictionary keys, in the order to be displayed.
-    private var fetchedStaffKeys = [Staff.Department]()
+    var fetchedStaffKeys = [Staff.Department]()
+    
+    ///The favorited staff members.
+    var favoritedStaff = [Staff]()
     
     ///The filtered search staff to display.
     var filteredSearchStaff = [Staff.Department: [Staff]]()
@@ -40,9 +43,14 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     ///The view controller previewing object.
     var currentViewControllerPreviewing: UIViewControllerPreviewing?
     
+    ///The global instance.
+    public static var global: StaffViewController?
+    
     //MARK: - `UIViewController` overrides.
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        StaffViewController.global = self
         
         self.navigationController?.navigationBar.tintColor = .yellowTheme
         
@@ -74,7 +82,6 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.navigationController?.navigationBar.shadowImage = nil
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationItem.hidesSearchBarWhenScrolling = false
-        
         self.hideHairline()
     }
     
@@ -123,6 +130,19 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
             self.fetchedStaffKeys = serverDepartments
             
             self.collectionView.reloadData()
+            
+            //Filter favorited staff.
+            DispatchQueue.global(qos: .background).async {
+                
+                var filteredFavoriteStaff = [Staff]()
+                for key in self.fetchedStaffKeys {
+                    let staffArray = self.fetchedStaff[key]!
+                    filteredFavoriteStaff.append(contentsOf: staffArray.filter {
+                        $0.isFavorited
+                    })
+                }
+                self.favoritedStaff = filteredFavoriteStaff
+            }
             
             //Remove activity indicator.
             self.activityIndicator.stopAnimating()

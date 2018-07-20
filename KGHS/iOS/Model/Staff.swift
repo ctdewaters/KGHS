@@ -88,6 +88,53 @@ public class Staff: Codable {
         return Int(self.isDepartmentChair ?? "0") == 1
     }
     
+    ///Favorite events ID array.
+    public static var favoriteIDs: [String] {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "favoriteStaffIDs")
+        }
+        get {
+            return UserDefaults.standard.value(forKey: "favoriteStaffIDs") as? [String] ?? []
+        }
+    }
+    
+    ///True if the user has favorited this event.
+    public var isFavorited: Bool {
+        set {
+            self.isFavoritedLocal = newValue
+        }
+        get {
+            guard let isFavoritedLocal = self.isFavoritedLocal else {
+                self.isFavoritedLocal = Staff.favoriteIDs.contains(self.id ?? "")
+                return self.isFavoritedLocal ?? false
+            }
+            return isFavoritedLocal
+        }
+    }
+    private var isFavoritedLocal: Bool?
+    
+    //MARK: - Favoriting.
+    ///Favorites or unfavorites this staff memeber, depending on whether or not it's GUID is in the favorited staff member id array.
+    public func favorite() {
+        if let guid = self.id {
+            if Staff.favoriteIDs.contains(guid) {
+                //Unfavorite.
+                for i in 0..<Staff.favoriteIDs.count {
+                    if Staff.favoriteIDs[i] == guid {
+                        Staff.favoriteIDs.remove(at: i)
+                        self.isFavorited = false
+                        return
+                    }
+                }
+            }
+            else {
+                //Favorite.
+                Staff.favoriteIDs.append(guid)
+                self.isFavorited = true
+            }
+        }
+    }
+
     //MARK: - Staff fetching.
     ///The url to the staff fetch script.
     private static let retrievalURL = URL(string: "https://collindewaters.me/kghs/scripts/retrieveStaff.php?iOSRetrieval2")
@@ -118,6 +165,7 @@ public class Staff: Codable {
                         //Sort retrieved staff.
                         
                         for staffMember in retrievedStaff {
+                            staffMember.isFavoritedLocal = Staff.favoriteIDs.contains(staffMember.id ?? "")
                             if let department = staffMember.departmentValue {
                                 if !staffDepartments.contains(department) {
                                     //Department not yet set to the dictionary, add it and append the staff member.
