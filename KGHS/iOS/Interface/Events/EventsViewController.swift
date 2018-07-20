@@ -10,7 +10,7 @@ import UIKit
 import NVActivityIndicatorView
 
 ///`EventsViewController`: View Controller which displays events retrieved from the school's iCal feed, and the user's favorited events.
-class EventsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+class EventsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UIViewControllerPreviewingDelegate {
     
     //MARK: - IBOutlets.
     @IBOutlet weak var collectionView: UICollectionView!
@@ -28,6 +28,9 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     ///The search controller.
     var searchController: UISearchController?
+    
+    ///The selected event, set after cell selection.
+    var selectedEvent: Event?
 
     //MARK: - `UIViewController` overrides.
     override func viewDidLoad() {
@@ -45,7 +48,11 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.searchController?.dimsBackgroundDuringPresentation = false
         self.searchController?.searchBar.tintColor = .blueTheme
         self.searchController?.searchBar.delegate = self
+        self.searchController?.hidesNavigationBarDuringPresentation = false
         self.navigationItem.searchController = self.searchController
+        
+        //Register for view controller previewing.
+        self.registerForPreviewing(with: self, sourceView: self.collectionView)
         
         //Reload.
         self.reload()
@@ -60,7 +67,6 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.navigationController?.navigationBar.isTranslucent = true
         
         self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.searchController?.hidesNavigationBarDuringPresentation = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,6 +88,16 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "showEvent" {
+            if let destination = segue.destination as? EventDetailViewController {
+                destination.event = self.selectedEvent
+            }
+        }
     }
     
     //MARK: - Reloading.
@@ -158,6 +174,12 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         cell.unhighlight()
     }
     
+    //Selection.
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedEvent = self.isSearching ? self.filteredSearchEvents[indexPath.item] : self.events[indexPath.item]
+        self.performSegue(withIdentifier: "showEvent", sender: self)
+    }
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         //Resign search bar first responder.
         self.searchController?.searchBar.resignFirstResponder()
@@ -213,6 +235,30 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         return self.events.filter {
             ($0.calendarEvent?.eventSummary?.lowercased().contains(lowercasedSearchText) ?? false) || ($0.calendarEvent?.eventDescription?.lowercased().contains(lowercasedSearchText) ?? false) || ($0.subCategory?.displayTitle.lowercased().contains(lowercasedSearchText) ?? false) || ($0.category.displayTitle.lowercased().contains(lowercasedSearchText))
         }
+    }
+    
+    //MARK: - View controller previewing.
+    //Peek.
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = self.collectionView.indexPathForItem(at: location) else {
+            return nil
+        }
+        
+        guard let cell = self.collectionView.cellForItem(at: indexPath) else {
+            return nil
+        }
+        
+        previewingContext.sourceRect = cell.frame
+        
+        let event = self.isSearching ? self.filteredSearchEvents[indexPath.item] : self.events[indexPath.item]
+        EventDetailViewController.shared.event = event
+        
+        return EventDetailViewController.shared
+    }
+    
+    //Pop.
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
     
     //MARK: - Portrait detection.

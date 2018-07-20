@@ -17,7 +17,6 @@ class EventCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var backgroundShadowView: UIView!
     @IBOutlet weak var dateLabel: UILabel!
     
-    
     //MARK: - `UICollectionViewCell` overrides.
     override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)

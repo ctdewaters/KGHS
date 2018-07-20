@@ -44,6 +44,7 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.searchController?.dimsBackgroundDuringPresentation = false
         self.searchController?.searchBar.tintColor = .yellowTheme
         self.searchController?.searchBar.delegate = self
+        self.searchController?.hidesNavigationBarDuringPresentation = false
         self.navigationItem.searchController = self.searchController
         
         //Setup activity indicator.
@@ -72,7 +73,6 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         //Reset navigation bar.
         self.navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
         self.navigationItem.hidesSearchBarWhenScrolling = true
-        self.searchController?.hidesNavigationBarDuringPresentation = false
         
         self.tabBarController?.tabBar.barStyle = .black
         self.tabBarController?.tabBar.tintColor = .yellowTheme

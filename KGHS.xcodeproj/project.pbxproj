@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B825C05021016203003B644B /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B825C04F21016203003B644B /* EventDetailViewController.swift */; };
 		B83809A920FE27CA00A45DF9 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809A720FE27CA00A45DF9 /* EventsViewController.swift */; };
 		B83809AA20FE27CA00A45DF9 /* StaffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809A820FE27CA00A45DF9 /* StaffViewController.swift */; };
 		B83809AC20FE2D0C00A45DF9 /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809AB20FE2D0C00A45DF9 /* Staff.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		4D2A33CB5D32F854C45C9CD9 /* Pods_KGHS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KGHS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		928846966680B56FB16A0466 /* Pods-KGHS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KGHS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KGHS/Pods-KGHS.release.xcconfig"; sourceTree = "<group>"; };
+		B825C04F21016203003B644B /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		B83809A720FE27CA00A45DF9 /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		B83809A820FE27CA00A45DF9 /* StaffViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaffViewController.swift; sourceTree = "<group>"; };
 		B83809AB20FE2D0C00A45DF9 /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 		B8D4895B20FF783800655A25 /* EventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCollectionViewCell.swift; sourceTree = "<group>"; };
 		B8D4895F20FF877A00655A25 /* StaffCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffCollectionViewCell.swift; sourceTree = "<group>"; };
 		B8D48961210109B100655A25 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
+		B8D48964210157FA00655A25 /* KGHS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KGHS.entitlements; sourceTree = "<group>"; };
 		B8EC172020FE5D7700B80763 /* PowerSchoolViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerSchoolViewController.swift; sourceTree = "<group>"; };
 		B8F0CC09203DC5E800E7405A /* KGHS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KGHS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8F0CC0C203DC5E800E7405A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				B83809A720FE27CA00A45DF9 /* EventsViewController.swift */,
+				B825C04F21016203003B644B /* EventDetailViewController.swift */,
 				B8D4895B20FF783800655A25 /* EventCollectionViewCell.swift */,
 			);
 			path = Events;
@@ -195,6 +199,7 @@
 		B8F0CC0B203DC5E800E7405A /* KGHS */ = {
 			isa = PBXGroup;
 			children = (
+				B8D48964210157FA00655A25 /* KGHS.entitlements */,
 				B83809AF20FE2D2B00A45DF9 /* iOS */,
 			);
 			path = KGHS;
@@ -234,6 +239,11 @@
 				TargetAttributes = {
 					B8F0CC08203DC5E800E7405A = {
 						CreatedOnToolsVersion = 9.3;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -318,6 +328,7 @@
 				B83809AA20FE27CA00A45DF9 /* StaffViewController.swift in Sources */,
 				B8D4895220FF6A4B00655A25 /* MXLCalendarManager.m in Sources */,
 				B8D4895320FF6A4B00655A25 /* MXLCalendar.m in Sources */,
+				B825C05021016203003B644B /* EventDetailViewController.swift in Sources */,
 				B8EC172120FE5D7700B80763 /* PowerSchoolViewController.swift in Sources */,
 				B8D48962210109B100655A25 /* MoreViewController.swift in Sources */,
 				B83809AC20FE2D0C00A45DF9 /* Staff.swift in Sources */,
@@ -470,6 +481,7 @@
 			baseConfigurationReference = E3AA21DEF6A5A046C588EA7A /* Pods-KGHS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KGHS/KGHS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AP48SCT3J2;
 				INFOPLIST_FILE = "$(SRCROOT)/KGHS/iOS/Info.plist";
@@ -491,6 +503,7 @@
 			baseConfigurationReference = 928846966680B56FB16A0466 /* Pods-KGHS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = KGHS/KGHS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AP48SCT3J2;
 				INFOPLIST_FILE = "$(SRCROOT)/KGHS/iOS/Info.plist";
