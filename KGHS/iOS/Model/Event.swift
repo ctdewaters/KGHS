@@ -37,15 +37,40 @@ class Event {
         }
     }
     
+    ///Favorite events ID array.
+    public static var favoriteIDs: [String] {
+        set {
+            UserDefaults.standard.set(newValue, forKey: "favoriteEventIDs")
+        }
+        get {
+            return UserDefaults.standard.value(forKey: "favoriteEventIDs") as? [String] ?? []
+        }
+    }
+    
+    ///True if the user has favorited this event.
+    public var isFavorited: Bool {
+        set {
+            self.isFavoritedLocal = newValue
+        }
+        get {
+            guard let isFavoritedLocal = self.isFavoritedLocal else {
+                self.isFavoritedLocal = Event.favoriteIDs.contains(self.calendarEvent?.eventUniqueID ?? "")
+                return self.isFavoritedLocal ?? false
+            }
+            return isFavoritedLocal
+        }
+    }
+    private var isFavoritedLocal: Bool?
+    
     ///`Event.SubCategory`: represents a sub category this event belongs to, based on keywords.
     public enum SubCategory: String {
-        case VFB, JVFB, Golf, FH, JVBBSB, VBBSB, BSoccer, GSoccer, BTennis, GTennis, Track, VB, Graduation, Faculty, DepartmentChair, FBLA, DECA, Band, Chorus, SOL, AP, Theatre, BBB, GBB
+        case VFB, JVFB, Golf, FH, JVBBSB, VBBSB, BSoccer, GSoccer, BTennis, GTennis, Track, VB, Graduation, Faculty, DepartmentChair, FBLA, DECA, Band, Chorus, SOL, AP, Theatre, BBB, GBB, Senior
         
         ///The athletics subcategories.
         static let athletics: [SubCategory] = [.JVFB, .VFB, .Golf, .FH, .JVBBSB, .VBBSB, .BSoccer, .GSoccer, .BTennis, .GTennis, .Track, .VB, .BBB, .GBB]
         
         ///The academic subcategories.
-        static let academics: [SubCategory] = [.Graduation, .Faculty, .DepartmentChair, .FBLA, .DECA, .Band, .Chorus, .SOL, .AP, .Theatre]
+        static let academics: [SubCategory] = [.Graduation, .Faculty, .DepartmentChair, .FBLA, .DECA, .Band, .Chorus, .SOL, .AP, .Theatre, .Senior]
         
         ///The title to display for this category.
         public var displayTitle: String {
@@ -96,7 +121,7 @@ class Event {
                 return UIImage(named: "athletics")!
             }
             switch self {
-            case .Graduation :
+            case .Graduation, .Senior :
                 return UIImage(named: "graduation")!
             case .AP :
                 return UIImage(named: "AP")!
@@ -121,6 +146,28 @@ class Event {
     //MARK: - Initialization.
     public init(withMXLCalendarEvent calendarEvent: MXLCalendarEvent) {
         self.calendarEvent = calendarEvent
+    }
+    
+    //MARK: - Favoriting.
+    ///Favorites or unfavorites this event, depending on whether or not it's GUID is in the favorited event id array.
+    public func favorite() {
+        if let guid = self.calendarEvent?.eventUniqueID {
+            if Event.favoriteIDs.contains(guid) {
+                //Unfavorite.
+                for i in 0..<Event.favoriteIDs.count {
+                    if Event.favoriteIDs[i] == guid {
+                        Event.favoriteIDs.remove(at: i)
+                        self.isFavorited = false
+                        return
+                    }
+                }
+            }
+            else {
+                //Favorite.
+                Event.favoriteIDs.append(guid)
+                self.isFavorited = true
+            }
+        }
     }
     
     //MARK: - Retrieval.
@@ -182,6 +229,8 @@ class Event {
         
         //Set the event's subcategory.
         event.setSubCategory()
+        
+        event.isFavoritedLocal = Event.favoriteIDs.contains(event.calendarEvent?.eventUniqueID ?? "")
         
         return event
     }

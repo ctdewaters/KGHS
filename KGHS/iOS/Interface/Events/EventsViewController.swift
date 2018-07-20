@@ -20,6 +20,9 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     ///The retrieved events to display.
     var events = [Event]()
     
+    ///The favorited events.
+    var favoritedEvents = [Event]()
+    
     ///The filtered search events to display.
     var filteredSearchEvents = [Event]()
     
@@ -34,11 +37,16 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     ///The view controller previewing object.
     var currentViewControllerPreviewing: UIViewControllerPreviewing?
+    
+    ///The global instance.
+    public static var global: EventsViewController?
 
     //MARK: - `UIViewController` overrides.
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        EventsViewController.global = self
         
         //Setup activity indicator.
         self.activityIndicator.color = .blueTheme
@@ -119,6 +127,14 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
             if let retrievedEvents = retrievedEvents {
                 self.events = retrievedEvents
                 self.collectionView.reloadData()
+                
+                DispatchQueue.global(qos: .background).async {
+                    self.favoritedEvents = self.events.filter {
+                        $0.isFavorited
+                    }
+                    
+                    print(self.favoritedEvents)
+                }
                 
                 //Deactivate activity indicator
                 self.activityIndicator.isHidden = true

@@ -19,6 +19,7 @@ class EventDetailViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var verticalSeparator: UIView!
     @IBOutlet weak var horizontalSeparator: UIView!
+    @IBOutlet weak var favoriteButton: UIBarButtonItem!
     
     //MARK: - Properties.
     ///The event to display.
@@ -53,9 +54,12 @@ class EventDetailViewController: UIViewController {
             categoryLabelText = categoryLabelText + " • \(subCategory.displayTitle)"
         }
         self.categoryLabel.text = categoryLabelText
+        
 
         //Description label.
-        self.descriptionLabel.text = event?.calendarEvent?.eventDescription ?? ""
+        self.descriptionLabel.text = self.event?.calendarEvent?.eventDescription ?? ""
+        
+        self.favoriteButton.image = (self.event?.isFavorited ?? false) ? UIImage(named: "favoriteFilled") : UIImage(named: "favoriteEmpty")
         
     }
     
@@ -98,5 +102,22 @@ class EventDetailViewController: UIViewController {
             return false
         }
         return true
+    }
+    
+    //MARK: - IBActions.
+    @IBAction func favorite(_ sender: Any) {
+        guard let event = self.event else {
+            return
+        }
+        
+        self.favoriteButton.image = event.isFavorited ?  UIImage(named: "favoriteEmpty") : UIImage(named: "favoriteFilled")
+
+        DispatchQueue.global(qos: .background).async {
+            self.event?.favorite()
+            //Update global events view controller favorited events array.
+            EventsViewController.global?.favoritedEvents = EventsViewController.global?.events.filter {
+                $0.isFavorited
+            } ?? []
+        }
     }
 }

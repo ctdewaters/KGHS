@@ -173,7 +173,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zJ-y0-Cw7">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zJ-y0-Cw7">
                                 <rect key="frame" x="16" y="334.66666666666669" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="iH0-sV-56y"/>
@@ -357,12 +357,17 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Event" id="K7n-61-IGb">
-                        <barButtonItem key="rightBarButtonItem" image="favoriteEmpty" width="50" id="zEN-Wu-WOZ"/>
+                        <barButtonItem key="rightBarButtonItem" image="favoriteEmpty" width="50" id="zEN-Wu-WOZ">
+                            <connections>
+                                <action selector="favorite:" destination="b28-PS-ykX" id="CC7-k6-nD3"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="categoryLabel" destination="XoM-6M-c3a" id="6pd-4p-1cB"/>
                         <outlet property="dateLabel" destination="ytf-6Z-b9a" id="xNR-eP-DLd"/>
                         <outlet property="descriptionLabel" destination="0zJ-y0-Cw7" id="Yqy-t2-Eec"/>
+                        <outlet property="favoriteButton" destination="zEN-Wu-WOZ" id="8jw-mv-tte"/>
                         <outlet property="horizontalSeparator" destination="qGz-pp-5jA" id="SHL-zG-cYn"/>
                         <outlet property="iconImageView" destination="Oue-ml-6di" id="RaP-Ti-VZW"/>
                         <outlet property="titleLabel" destination="dHo-4D-q6n" id="n2t-eJ-nGY"/>
