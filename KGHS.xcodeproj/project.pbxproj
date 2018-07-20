@@ -13,6 +13,7 @@
 		B83809AC20FE2D0C00A45DF9 /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809AB20FE2D0C00A45DF9 /* Staff.swift */; };
 		B83809B120FE2D6C00A45DF9 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809B020FE2D6C00A45DF9 /* Event.swift */; };
 		B8CDF0DD21022BA500CA749F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CDF0DC21022BA500CA749F /* Settings.swift */; };
+		B8CDF0DF2102615D00CA749F /* StaffDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CDF0DE2102615D00CA749F /* StaffDetailViewController.swift */; };
 		B8D4895220FF6A4B00655A25 /* MXLCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4894820FF6A4B00655A25 /* MXLCalendarManager.m */; };
 		B8D4895320FF6A4B00655A25 /* MXLCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4894A20FF6A4B00655A25 /* MXLCalendar.m */; };
 		B8D4895420FF6A4B00655A25 /* NSTimeZone+ProperAbbreviation.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4894C20FF6A4B00655A25 /* NSTimeZone+ProperAbbreviation.m */; };
@@ -38,6 +39,7 @@
 		B83809AB20FE2D0C00A45DF9 /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
 		B83809B020FE2D6C00A45DF9 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		B8CDF0DC21022BA500CA749F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		B8CDF0DE2102615D00CA749F /* StaffDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffDetailViewController.swift; sourceTree = "<group>"; };
 		B8D4894820FF6A4B00655A25 /* MXLCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendarManager.m; sourceTree = "<group>"; };
 		B8D4894920FF6A4B00655A25 /* MXLCalendarAttendee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXLCalendarAttendee.h; sourceTree = "<group>"; };
 		B8D4894A20FF6A4B00655A25 /* MXLCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendar.m; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				B83809A820FE27CA00A45DF9 /* StaffViewController.swift */,
+				B8CDF0DE2102615D00CA749F /* StaffDetailViewController.swift */,
 				B8D4895F20FF877A00655A25 /* StaffCollectionViewCell.swift */,
 			);
 			path = Staff;
@@ -334,6 +337,7 @@
 				B825C05021016203003B644B /* EventDetailViewController.swift in Sources */,
 				B8EC172120FE5D7700B80763 /* PowerSchoolViewController.swift in Sources */,
 				B8D48962210109B100655A25 /* MoreViewController.swift in Sources */,
+				B8CDF0DF2102615D00CA749F /* StaffDetailViewController.swift in Sources */,
 				B83809AC20FE2D0C00A45DF9 /* Staff.swift in Sources */,
 				B8CDF0DD21022BA500CA749F /* Settings.swift in Sources */,
 				B83809A920FE27CA00A45DF9 /* EventsViewController.swift in Sources */,

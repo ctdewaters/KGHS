@@ -10,7 +10,7 @@ import UIKit
 import NVActivityIndicatorView
 
 ///`StaffViewController`: View controller class which displays the school's staff directory, and favorited staff.
-class StaffViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+class StaffViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, UIViewControllerPreviewingDelegate {
     //MARK: - IBOutlets.
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
@@ -30,10 +30,15 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     ///If true, the user is currently searching events.
     var isSearching: Bool = false
-
+    
+    ///The selected staff member.
+    var selectedStaffMember: Staff?
     
     ///The search controller.
     private var searchController: UISearchController?
+    
+    ///The view controller previewing object.
+    var currentViewControllerPreviewing: UIViewControllerPreviewing?
     
     //MARK: - `UIViewController` overrides.
     override func viewDidLoad() {
@@ -47,7 +52,11 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.searchController?.searchBar.tintColor = .yellowTheme
         self.searchController?.searchBar.delegate = self
         self.searchController?.hidesNavigationBarDuringPresentation = false
+        self.definesPresentationContext = true
         self.navigationItem.searchController = self.searchController
+        
+        //Register for previewing.
+        self.currentViewControllerPreviewing = self.registerForPreviewing(with: self, sourceView: self.collectionView)
         
         //Setup activity indicator.
         self.activityIndicator.color = .blueTheme
@@ -86,6 +95,15 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         // Dispose of any resources that can be recreated.
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if segue.identifier == "showStaffMember" {
+            let destination = segue.destination as! StaffDetailViewController
+            destination.staffMember = self.selectedStaffMember
+        }
+    }
+    
     //MARK: - Reloading.
     func reload() {
         //Animate activity indicator.
@@ -182,6 +200,15 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         cell.unhighlight()
     }
     
+    //Selection.
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let key = self.isSearching ? self.filteredSearchStaffKeys[indexPath.section] : self.fetchedStaffKeys[indexPath.section]
+        if let staffMember = self.isSearching ? self.filteredSearchStaff[key]?[indexPath.item] : self.fetchedStaff[key]?[indexPath.item] {
+            self.selectedStaffMember = staffMember
+            self.performSegue(withIdentifier: "showStaffMember", sender: self)
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
@@ -195,6 +222,10 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         //Set `isSearching` to true.
         self.isSearching = true
+        
+        //Update view controller previewing.
+        self.unregisterForPreviewing(withContext: self.currentViewControllerPreviewing!)
+        self.currentViewControllerPreviewing = self.searchController?.registerForPreviewing(with: self, sourceView: self.collectionView)
         
         let searchBarText = searchBar.text ?? ""
         DispatchQueue.global(qos: .background).async {
@@ -214,6 +245,10 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         //Set `isSearching` to false.
         self.isSearching = false
+        
+        //Update view controller previewing.
+        self.searchController?.unregisterForPreviewing(withContext: self.currentViewControllerPreviewing!)
+        self.currentViewControllerPreviewing = self.registerForPreviewing(with: self, sourceView: self.collectionView)
         
         //Remove all events from the filtered search events array.
         self.filteredSearchStaff.removeAll()
@@ -269,6 +304,32 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         }
         
         return (staff: staff, keys: keys)
+    }
+    
+    //MARK: - `UIViewControllerPreviewingDelegate`.
+    //Peek.
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = self.collectionView.indexPathForItem(at: location) else {
+            return nil
+        }
+        
+        guard let cell = self.collectionView.cellForItem(at: indexPath) else {
+            return nil
+        }
+        
+        previewingContext.sourceRect = cell.frame
+        
+        let key = self.isSearching ? self.filteredSearchStaffKeys[indexPath.section] : self.fetchedStaffKeys[indexPath.section]
+        if let staffMember = self.isSearching ? self.filteredSearchStaff[key]?[indexPath.item] : self.fetchedStaff[key]?[indexPath.item] {
+            StaffDetailViewController.shared.staffMember = staffMember
+        }
+
+        return StaffDetailViewController.shared
+    }
+    
+    //Pop.
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 
     //MARK: - Portrait detection.
