@@ -31,6 +31,9 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     ///The selected event, set after cell selection.
     var selectedEvent: Event?
+    
+    ///The view controller previewing object.
+    var currentViewControllerPreviewing: UIViewControllerPreviewing?
 
     //MARK: - `UIViewController` overrides.
     override func viewDidLoad() {
@@ -51,8 +54,10 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.searchController?.hidesNavigationBarDuringPresentation = false
         self.navigationItem.searchController = self.searchController
         
+        self.definesPresentationContext = true
+        
         //Register for view controller previewing.
-        self.registerForPreviewing(with: self, sourceView: self.collectionView)
+        self.currentViewControllerPreviewing = self.registerForPreviewing(with: self, sourceView: self.collectionView)
         
         //Reload.
         self.reload()
@@ -190,6 +195,12 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         //Set `isSearching` to true.
         self.isSearching = true
         
+        //Unregister the view controller for previewing, and register the search controller for previewing.
+        if let vcPreviewing = self.currentViewControllerPreviewing {
+            self.unregisterForPreviewing(withContext: vcPreviewing)
+        }
+        self.currentViewControllerPreviewing = self.searchController?.registerForPreviewing(with: self, sourceView: self.collectionView)
+        
         let searchBarText = searchBar.text ?? ""
         DispatchQueue.global(qos: .background).async {
             self.filteredSearchEvents = self.filterEvents(withSearchText: searchBarText)
@@ -207,6 +218,12 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         //Remove all events from the filtered search events array.
         self.filteredSearchEvents.removeAll()
+        
+        //Unregister the search controller for previewing, and register the view controller for previewing.
+        if let vcPreviewing = self.currentViewControllerPreviewing {
+            self.searchController?.unregisterForPreviewing(withContext: vcPreviewing)
+        }
+        self.currentViewControllerPreviewing = self.registerForPreviewing(with: self, sourceView: self.collectionView)
         
         //Reload collection view data.
         self.collectionView.reloadData()
@@ -243,7 +260,7 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         guard let indexPath = self.collectionView.indexPathForItem(at: location) else {
             return nil
         }
-        
+                
         guard let cell = self.collectionView.cellForItem(at: indexPath) else {
             return nil
         }
