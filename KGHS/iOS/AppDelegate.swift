@@ -82,3 +82,23 @@ public extension UIViewController {
             .first
     }
 }
+
+//MARK: - String extension.
+extension String {
+    ///Returns the height of a String with a constrainted width and font.
+    func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
+        
+        return ceil(boundingBox.height)
+    }
+    
+    ///Returns the width of a String with a constrainted height and font.
+    func width(withConstraintedHeight height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: .greatestFiniteMagnitude, height: height)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: font], context: nil)
+        
+        return ceil(boundingBox.width)
+    }
+}
+

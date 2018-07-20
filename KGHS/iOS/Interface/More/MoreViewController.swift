@@ -17,9 +17,8 @@ class MoreViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     //MARK: - `UIViewController` overrides.
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
+        self.navigationController?.navigationBar.tintColor = .blueTheme
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -39,6 +39,8 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.tintColor = .yellowTheme
+        
         //Setup the search controller.
         self.searchController = UISearchController(searchResultsController: nil)
         self.searchController?.dimsBackgroundDuringPresentation = false

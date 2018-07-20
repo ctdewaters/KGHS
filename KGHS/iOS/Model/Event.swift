@@ -33,7 +33,7 @@ class Event {
             if self == .athletics {
                 return "Athletics"
             }
-            return "Academics"
+            return "KGHS"
         }
     }
     

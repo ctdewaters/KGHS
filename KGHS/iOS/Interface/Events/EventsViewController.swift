@@ -46,6 +46,8 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         self.collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
+        self.navigationController?.navigationBar.tintColor = .blueTheme
+        
         //Setup the search controller.
         self.searchController = UISearchController(searchResultsController: nil)
         self.searchController?.dimsBackgroundDuringPresentation = false

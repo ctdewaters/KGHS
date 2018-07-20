@@ -17,6 +17,8 @@ class EventDetailViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var verticalSeparator: UIView!
+    @IBOutlet weak var horizontalSeparator: UIView!
     
     //MARK: - Properties.
     ///The event to display.
@@ -29,9 +31,6 @@ class EventDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Preferred height (for previewing).
-        self.preferredContentSize.height = 250
         
         //Setup UI with event.
         self.titleLabel.text = event?.calendarEvent?.eventSummary ?? "No Title"
@@ -60,9 +59,44 @@ class EventDetailViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        
+        //Preferred height (for previewing).
+        if self.isPortrait {
+            self.preferredContentSize.height = 188 + (self.descriptionLabel.text?.height(withConstrainedWidth: self.view.frame.width - 32, font: UIFont.preferredFont(forTextStyle: .body)) ?? 0)
+        }
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         EventDetailViewController.shared = mainStoryboard.instantiateViewController(withIdentifier: "eventDetailVC") as! EventDetailViewController
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        //Hiding separator.
+        if self.isPortrait {
+            self.horizontalSeparator.isHidden = true
+            self.verticalSeparator.isHidden = false
+        }
+        else {
+            self.horizontalSeparator.isHidden = false
+            self.verticalSeparator.isHidden = true
+        }
+    }
+    
+    
+    //MARK: - Portrait detection.
+    ///Returns true if the device is currently portrait.
+    var isPortrait: Bool {
+        if self.view.frame.width > self.view.frame.height {
+            return false
+        }
+        return true
     }
 }
