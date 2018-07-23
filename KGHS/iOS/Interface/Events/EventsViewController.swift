@@ -17,6 +17,11 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
     @IBOutlet weak var showFavoritesSegmentedControl: UISegmentedControl!
 
+    //No events alert view.
+    @IBOutlet weak var noEventsAlertView: UIView!
+    @IBOutlet weak var noEventsTitleLabel: UILabel!
+    @IBOutlet weak var noEventsCaptionLabel: UILabel!
+    
     //MARK: - Properties.
     ///The retrieved events to display.
     var events = [Event]()
@@ -38,6 +43,9 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     ///The view controller previewing object.
     var currentViewControllerPreviewing: UIViewControllerPreviewing?
+    
+    ///True if events are being retrieved.
+    var isLoading = false
     
     var showAll: Bool {
         if self.showFavoritesSegmentedControl.selectedSegmentIndex == 0 {
@@ -91,7 +99,7 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         self.navigationItem.hidesSearchBarWhenScrolling = false
         
-        self.collectionView.reloadData()
+        self.reloadCollectionView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -107,7 +115,6 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.tabBarController?.tabBar.barStyle = .default
         self.tabBarController?.tabBar.tintColor = .blueTheme
         UIApplication.shared.statusBarStyle = .default
-        
     }
 
 
@@ -127,17 +134,22 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     //MARK: - Reloading.
+    ///Reloads the collection view, retrieving events from the school's ICS feed.
     func reload() {
+        self.isLoading = true
+        
         //Animate activity indicator.
         self.activityIndicator.isHidden = false
         self.activityIndicator.startAnimating()
+        self.noEventsAlertView.isHidden = true
 
         //Retrive the events.
         Event.retrieve { (retrievedEvents) in
+            self.isLoading = false
             //Unwrap the retreived events array.
             if let retrievedEvents = retrievedEvents {
                 self.events = retrievedEvents
-                self.collectionView.reloadData()
+                self.reloadCollectionView()
                 
                 DispatchQueue.global(qos: .background).async {
                     self.favoritedEvents = self.events.filter {
@@ -154,10 +166,41 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     
+    ///Reloads the collection view with preretrieved data.
+    func reloadCollectionView() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            
+            if !self.showAll && self.favoritedEvents.count == 0 {
+                //Show no favorited events alert.
+                self.present(noEventsAlertViewWithTitle: "No Favorited Events", andCaption: "Tap the star icon after selecting an event to favorite it.")
+            }
+            else if !self.isLoading && self.showAll && self.events.count == 0  {
+                self.present(noEventsAlertViewWithTitle: "No Events Found", andCaption: "Could not retrieve calendar events. Please try again.")
+            }
+            else {
+                self.dismissNoEventsAlertView()
+            }
+        }
+    }
+    
+    //MARK: - No Events Alert View.
+    ///Presents the no events alert view.
+    func present(noEventsAlertViewWithTitle title: String, andCaption caption: String) {
+        self.noEventsTitleLabel.text = title
+        self.noEventsCaptionLabel.text = caption
+        self.noEventsAlertView.isHidden = false
+    }
+    
+    ///Dismisses the no events alert view.
+    func dismissNoEventsAlertView() {
+        self.noEventsAlertView.isHidden = true
+    }
+    
     //MARK: - Segmented Control.
     ///Called when the segmented control's value changes.
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        self.collectionView.reloadData()
+        self.reloadCollectionView()
         self.collectionView.scrollRectToVisible(.zero, animated: true)
     }
     
@@ -247,7 +290,7 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             //Reload collection view in main thread.
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                self.reloadCollectionView()
             }
         }
     }
@@ -266,7 +309,7 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.currentViewControllerPreviewing = self.registerForPreviewing(with: self, sourceView: self.collectionView)
         
         //Reload collection view data.
-        self.collectionView.reloadData()
+        self.reloadCollectionView()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -277,7 +320,7 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             //Reload collection view in main thread.
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                self.reloadCollectionView()
             }
         }
     }

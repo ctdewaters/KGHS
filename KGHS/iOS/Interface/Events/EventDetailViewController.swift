@@ -94,6 +94,12 @@ class EventDetailViewController: UIViewController {
         }
     }
     
+    override var previewActionItems: [UIPreviewActionItem] {
+        let favoriteAction = UIPreviewAction(title: (self.event?.isFavorited ?? false) ? "Unfavorite" : "Favorite", style: .default) { (action, viewController) in
+            self.favorite(self)
+        }
+        return [favoriteAction]
+    }
     
     //MARK: - Portrait detection.
     ///Returns true if the device is currently portrait.
@@ -118,6 +124,8 @@ class EventDetailViewController: UIViewController {
             EventsViewController.global?.favoritedEvents = EventsViewController.global?.events.filter {
                 $0.isFavorited
             } ?? []
+            
+            EventsViewController.global?.reloadCollectionView()
         }
     }
 }

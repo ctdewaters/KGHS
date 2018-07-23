@@ -117,9 +117,45 @@
                                     <constraint firstAttribute="height" constant="50" id="qcL-dx-edv"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3d6-Wq-WLH">
+                                <rect key="frame" x="67.666666666666686" y="354.66666666666669" width="240" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Favorited Events" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sW-FY-S2p">
+                                        <rect key="frame" x="16" y="10" width="208" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="26" id="vpZ-Sd-7uH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To favorite an event, tap the star icon after selecting it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9X-hr-6iI">
+                                        <rect key="frame" x="16" y="44" width="208" height="38.333333333333343"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="C8S-XE-gwZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="2bO-4k-R4I"/>
+                                    <constraint firstAttribute="trailing" secondItem="1sW-FY-S2p" secondAttribute="trailing" constant="16" id="6N9-1Z-bQP"/>
+                                    <constraint firstItem="1sW-FY-S2p" firstAttribute="top" secondItem="3d6-Wq-WLH" secondAttribute="top" constant="10" id="8WI-zP-BQA"/>
+                                    <constraint firstItem="1sW-FY-S2p" firstAttribute="leading" secondItem="3d6-Wq-WLH" secondAttribute="leading" constant="16" id="9O1-qs-ohi"/>
+                                    <constraint firstItem="n9X-hr-6iI" firstAttribute="leading" secondItem="3d6-Wq-WLH" secondAttribute="leading" constant="16" id="QOS-pX-icF"/>
+                                    <constraint firstAttribute="height" constant="100" id="kcB-Dc-lPg"/>
+                                    <constraint firstAttribute="trailing" secondItem="n9X-hr-6iI" secondAttribute="trailing" constant="16" id="oqO-QA-6qe"/>
+                                    <constraint firstItem="n9X-hr-6iI" firstAttribute="top" secondItem="1sW-FY-S2p" secondAttribute="bottom" constant="8" id="uxK-Yj-P98"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="3d6-Wq-WLH" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="2HI-QK-9ph"/>
+                            <constraint firstItem="3d6-Wq-WLH" firstAttribute="centerY" secondItem="PQr-Ze-W5v" secondAttribute="centerY" constant="-30" id="MKH-Lc-0kq"/>
                             <constraint firstItem="bx8-w2-5hn" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="Nqg-bM-fX2"/>
                             <constraint firstItem="bx8-w2-5hn" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="adO-Hg-cjO"/>
                             <constraint firstItem="bx8-w2-5hn" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="fIq-A1-dpK"/>
@@ -147,6 +183,9 @@
                     <connections>
                         <outlet property="activityIndicator" destination="WKI-h8-ZPT" id="bmr-ws-768"/>
                         <outlet property="collectionView" destination="bx8-w2-5hn" id="hcf-Mb-uSi"/>
+                        <outlet property="noEventsAlertView" destination="3d6-Wq-WLH" id="tif-C2-HKu"/>
+                        <outlet property="noEventsCaptionLabel" destination="n9X-hr-6iI" id="7mt-Px-S2q"/>
+                        <outlet property="noEventsTitleLabel" destination="1sW-FY-S2p" id="1dU-9i-cwh"/>
                         <outlet property="showFavoritesSegmentedControl" destination="rM8-Lu-uzk" id="MA8-b5-3Lj"/>
                         <segue destination="b28-PS-ykX" kind="show" identifier="showEvent" id="baa-A6-JaM"/>
                     </connections>
