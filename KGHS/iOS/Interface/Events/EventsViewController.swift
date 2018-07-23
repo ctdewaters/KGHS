@@ -133,6 +133,12 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     
+    //MARK: - Button function.
+    @IBAction func actionButtonPressed(_ sender: Any) {
+    }
+    
+    
+    
     //MARK: - Reloading.
     ///Reloads the collection view, retrieving events from the school's ICS feed.
     func reload() {
