@@ -15,7 +15,8 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     //MARK: - IBOutlets.
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
-    
+    @IBOutlet weak var showFavoritesSegmentedControl: UISegmentedControl!
+
     //MARK: - Properties.
     ///The retrieved events to display.
     var events = [Event]()
@@ -38,6 +39,13 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     ///The view controller previewing object.
     var currentViewControllerPreviewing: UIViewControllerPreviewing?
     
+    var showAll: Bool {
+        if self.showFavoritesSegmentedControl.selectedSegmentIndex == 0 {
+            return true
+        }
+        return false
+    }
+
     ///The global instance.
     public static var global: EventsViewController?
 
@@ -82,6 +90,8 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.navigationController?.navigationBar.isTranslucent = true
         
         self.navigationItem.hidesSearchBarWhenScrolling = false
+        
+        self.collectionView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -97,6 +107,7 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.tabBarController?.tabBar.barStyle = .default
         self.tabBarController?.tabBar.tintColor = .blueTheme
         UIApplication.shared.statusBarStyle = .default
+        
     }
 
 
@@ -143,6 +154,12 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     
+    //MARK: - Segmented Control.
+    ///Called when the segmented control's value changes.
+    @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        self.collectionView.reloadData()
+        self.collectionView.scrollRectToVisible(.zero, animated: true)
+    }
     
     //MARK: - `UICollectionView` functions.
     //Number of sections.
@@ -152,13 +169,17 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     //Number of cells in a section.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.isSearching ? self.filteredSearchEvents.count : self.events.count
+        if self.isSearching {
+            return self.filteredSearchEvents.count
+        }
+        return self.showAll ? self.events.count : self.favoritedEvents.count
     }
     
     //Cell setup.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath) as! EventCollectionViewCell
-        cell.setup(withEvent: self.isSearching ? self.filteredSearchEvents[indexPath.item] : self.events[indexPath.item])
+        cell.setup(withEvent: self.event(forIndex: indexPath.item))
+        
         return cell
     }
     
@@ -199,7 +220,7 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     //Selection.
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectedEvent = self.isSearching ? self.filteredSearchEvents[indexPath.item] : self.events[indexPath.item]
+        self.selectedEvent = self.event(forIndex: indexPath.item)
         self.performSegue(withIdentifier: "showEvent", sender: self)
     }
     
@@ -220,8 +241,9 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.currentViewControllerPreviewing = self.searchController?.registerForPreviewing(with: self, sourceView: self.collectionView)
         
         let searchBarText = searchBar.text ?? ""
+        let showAll = self.showAll
         DispatchQueue.global(qos: .background).async {
-            self.filteredSearchEvents = self.filterEvents(withSearchText: searchBarText)
+            self.filteredSearchEvents = self.filterEvents(withSearchText: searchBarText, usingAllEvents: showAll)
             
             //Reload collection view in main thread.
             DispatchQueue.main.async {
@@ -248,9 +270,10 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let showAll = self.showAll
         //Run in background thread.
         DispatchQueue.global(qos: .background).async {
-            self.filteredSearchEvents = self.filterEvents(withSearchText: searchText)
+            self.filteredSearchEvents = self.filterEvents(withSearchText: searchText, usingAllEvents: showAll)
             
             //Reload collection view in main thread.
             DispatchQueue.main.async {
@@ -260,14 +283,20 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     //MARK: - Event filtering.
-    private func filterEvents(withSearchText searchText: String) -> [Event] {
+    private func filterEvents(withSearchText searchText: String, usingAllEvents useAllEvents: Bool) -> [Event] {
         //If search text contains no characters, show all events.
         if searchText == "" {
-            return self.events
+            return useAllEvents ? self.events : self.favoritedEvents
         }
         
         let lowercasedSearchText = searchText.lowercased()
-        return self.events.filter {
+        
+        if useAllEvents {
+            return self.events.filter {
+                ($0.calendarEvent?.eventSummary?.lowercased().contains(lowercasedSearchText) ?? false) || ($0.calendarEvent?.eventDescription?.lowercased().contains(lowercasedSearchText) ?? false) || ($0.subCategory?.displayTitle.lowercased().contains(lowercasedSearchText) ?? false) || ($0.category.displayTitle.lowercased().contains(lowercasedSearchText))
+            }
+        }
+        return self.favoritedEvents.filter {
             ($0.calendarEvent?.eventSummary?.lowercased().contains(lowercasedSearchText) ?? false) || ($0.calendarEvent?.eventDescription?.lowercased().contains(lowercasedSearchText) ?? false) || ($0.subCategory?.displayTitle.lowercased().contains(lowercasedSearchText) ?? false) || ($0.category.displayTitle.lowercased().contains(lowercasedSearchText))
         }
     }
@@ -285,7 +314,7 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         previewingContext.sourceRect = cell.frame
         
-        let event = self.isSearching ? self.filteredSearchEvents[indexPath.item] : self.events[indexPath.item]
+        let event = self.event(forIndex: indexPath.item)
         EventDetailViewController.shared.event = event
         
         return EventDetailViewController.shared
@@ -294,6 +323,15 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     //Pop.
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         self.navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
+    
+    //MARK: - Event Retrieval.
+    ///Retrieves the correct event, given an index.
+    func event(forIndex index: Int) -> Event {
+        if self.isSearching {
+            return self.filteredSearchEvents[index]
+        }
+        return self.showAll ? self.events[index] : self.favoritedEvents[index]
     }
     
     //MARK: - Portrait detection.

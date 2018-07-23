@@ -172,7 +172,7 @@ class Event {
     
     //MARK: - Retrieval.
     ///The url to the school's ICS feed.
-    private static let icsURL = URL(string: "https://www.calendarwiz.com/CalendarWiz_iCal.php?crd=kgcs&ical_days_ahead=150&cid[]=132859&cid[]=133033")
+    private static let icsURL = URL(string: "https://www.calendarwiz.com/CalendarWiz_iCal.php?crd=kgcs&ical_days_ahead=150&ical_days_back=0&cid[]=132859&cid[]=133033")
     
     ///Retrieves all events currently in the school's ICS feed.
     public class func retrieve(allEventsWithCompletion completion: @escaping ([Event]?)->Void) {

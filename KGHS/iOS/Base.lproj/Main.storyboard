@@ -129,10 +129,25 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Calendar" id="or7-D2-qpz"/>
+                    <navigationItem key="navigationItem" title="Calendar" id="or7-D2-qpz">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="FcZ-7J-910">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="bar" selectedSegmentIndex="0" id="rM8-Lu-uzk">
+                                <rect key="frame" x="278" y="7" width="81" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="All" width="40"/>
+                                    <segment title="" image="favoriteFilled" width="40"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentedControlValueChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="itr-6T-Nw7"/>
+                                </connections>
+                            </segmentedControl>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="WKI-h8-ZPT" id="bmr-ws-768"/>
                         <outlet property="collectionView" destination="bx8-w2-5hn" id="hcf-Mb-uSi"/>
+                        <outlet property="showFavoritesSegmentedControl" destination="rM8-Lu-uzk" id="MA8-b5-3Lj"/>
                         <segue destination="b28-PS-ykX" kind="show" identifier="showEvent" id="baa-A6-JaM"/>
                     </connections>
                 </viewController>
@@ -305,6 +320,9 @@
                                 <exclude reference="Ncc-Eu-YxN"/>
                                 <exclude reference="oj8-q4-dpW"/>
                                 <exclude reference="oka-Od-fRq"/>
+                                <exclude reference="3k1-Sm-IPb"/>
+                                <exclude reference="GXh-Rr-zHR"/>
+                                <exclude reference="hfh-5u-6YI"/>
                                 <exclude reference="1Oa-O8-swE"/>
                                 <exclude reference="GOM-cb-PCn"/>
                                 <exclude reference="Yb0-hJ-anm"/>
@@ -313,9 +331,6 @@
                                 <exclude reference="k9c-Or-PGY"/>
                                 <exclude reference="nQa-jN-kF2"/>
                                 <exclude reference="ojq-nL-11d"/>
-                                <exclude reference="3k1-Sm-IPb"/>
-                                <exclude reference="GXh-Rr-zHR"/>
-                                <exclude reference="hfh-5u-6YI"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -340,6 +355,11 @@
                                 <exclude reference="aBN-TN-Y4L"/>
                                 <include reference="oj8-q4-dpW"/>
                                 <include reference="oka-Od-fRq"/>
+                                <include reference="3k1-Sm-IPb"/>
+                                <include reference="GXh-Rr-zHR"/>
+                                <exclude reference="LFF-uu-Qch"/>
+                                <include reference="hfh-5u-6YI"/>
+                                <exclude reference="pYr-Sn-lX5"/>
                                 <exclude reference="1Oa-O8-swE"/>
                                 <include reference="GOM-cb-PCn"/>
                                 <include reference="Yb0-hJ-anm"/>
@@ -348,11 +368,6 @@
                                 <exclude reference="k9c-Or-PGY"/>
                                 <include reference="nQa-jN-kF2"/>
                                 <exclude reference="ojq-nL-11d"/>
-                                <include reference="3k1-Sm-IPb"/>
-                                <include reference="GXh-Rr-zHR"/>
-                                <exclude reference="LFF-uu-Qch"/>
-                                <include reference="hfh-5u-6YI"/>
-                                <exclude reference="pYr-Sn-lX5"/>
                             </mask>
                         </variation>
                     </view>
@@ -487,6 +502,16 @@
                     </view>
                     <navigationItem key="navigationItem" title="Faculty &amp; Staff" id="n5O-U4-8mO">
                         <barButtonItem key="backBarButtonItem" title="Faculty &amp; Staff" id="HEy-Lp-9wq"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="nQL-bd-K64">
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="bar" selectedSegmentIndex="0" id="K3e-qb-046">
+                                <rect key="frame" x="278" y="7" width="81" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="All" width="40"/>
+                                    <segment title="" image="favoriteFilled" width="40"/>
+                                </segments>
+                            </segmentedControl>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="ASn-Xb-lXA" id="Vkd-I3-JXm"/>
@@ -790,7 +815,6 @@
                                 <include reference="WiV-U7-87d"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="SJI-k2-OLe"/>
                                 <include reference="0Rx-cz-Vt0"/>
                                 <include reference="9ii-G1-HMp"/>
                                 <exclude reference="S6U-wK-FKB"/>
@@ -798,6 +822,7 @@
                                 <include reference="iue-cx-Tpo"/>
                                 <include reference="s08-L5-gR2"/>
                                 <include reference="xEO-Us-JQd"/>
+                                <exclude reference="SJI-k2-OLe"/>
                             </mask>
                         </variation>
                     </view>
@@ -826,6 +851,7 @@
     <resources>
         <image name="academics" width="72" height="72"/>
         <image name="favoriteEmpty" width="11.670823097229004" height="11.670823097229004"/>
+        <image name="favoriteFilled" width="11.670823097229004" height="11.670823097229004"/>
         <image name="field" width="600" height="400"/>
         <image name="front" width="666" height="400"/>
         <image name="kgSelected" width="75" height="75"/>
