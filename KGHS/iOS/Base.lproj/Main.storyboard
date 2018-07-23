@@ -519,6 +519,40 @@
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="DVd-LF-cEp"/>
                                 </connections>
                             </collectionView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hug-xw-aOa">
+                                <rect key="frame" x="67.666666666666686" y="384.66666666666669" width="240" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Favorited Staff" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0b-bn-zq2">
+                                        <rect key="frame" x="16" y="10" width="208" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="26" id="qbn-Q6-Jqp"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To favorite an staff member, tap the star icon after selecting it." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FC9-HJ-rBG">
+                                        <rect key="frame" x="16" y="44" width="208" height="57.333333333333343"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="ySI-n0-cma"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="1NQ-MM-jK1"/>
+                                    <constraint firstAttribute="trailing" secondItem="FC9-HJ-rBG" secondAttribute="trailing" constant="16" id="CpB-7b-bih"/>
+                                    <constraint firstAttribute="width" constant="240" id="K1c-Tm-ipw"/>
+                                    <constraint firstItem="g0b-bn-zq2" firstAttribute="leading" secondItem="Hug-xw-aOa" secondAttribute="leading" constant="16" id="VDM-yg-mJ7"/>
+                                    <constraint firstAttribute="trailing" secondItem="g0b-bn-zq2" secondAttribute="trailing" constant="16" id="Wfj-nB-ENp"/>
+                                    <constraint firstItem="FC9-HJ-rBG" firstAttribute="top" secondItem="g0b-bn-zq2" secondAttribute="bottom" constant="8" id="p5P-Gy-39H"/>
+                                    <constraint firstItem="FC9-HJ-rBG" firstAttribute="leading" secondItem="Hug-xw-aOa" secondAttribute="leading" constant="16" id="vaK-ws-zK7"/>
+                                    <constraint firstItem="g0b-bn-zq2" firstAttribute="top" secondItem="Hug-xw-aOa" secondAttribute="top" constant="10" id="xeM-TB-8dO"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASn-Xb-lXA" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
                                 <rect key="frame" x="162.66666666666666" y="409.66666666666669" width="50" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -534,8 +568,10 @@
                             <constraint firstAttribute="bottom" secondItem="Gdj-zO-t5J" secondAttribute="bottom" id="HD0-7q-Uff"/>
                             <constraint firstItem="Gdj-zO-t5J" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="Imz-0F-Uls"/>
                             <constraint firstItem="ASn-Xb-lXA" firstAttribute="centerX" secondItem="O1u-W8-tvY" secondAttribute="centerX" id="Xii-eq-5so"/>
+                            <constraint firstItem="Hug-xw-aOa" firstAttribute="centerX" secondItem="O1u-W8-tvY" secondAttribute="centerX" id="jd8-IK-Mcp"/>
                             <constraint firstItem="ASn-Xb-lXA" firstAttribute="centerY" secondItem="O1u-W8-tvY" secondAttribute="centerY" id="yIa-Ef-RDU"/>
                             <constraint firstItem="Gdj-zO-t5J" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="yeQ-EX-kyL"/>
+                            <constraint firstItem="Hug-xw-aOa" firstAttribute="centerY" secondItem="O1u-W8-tvY" secondAttribute="centerY" id="z3Z-5a-sF0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
@@ -549,12 +585,16 @@
                                     <segment title="All" width="40"/>
                                     <segment title="" image="favoriteFilled" width="40"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentedControlValueChanged:" destination="8rJ-Kc-sve" eventType="valueChanged" id="iQi-La-ric"/>
+                                </connections>
                             </segmentedControl>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="ASn-Xb-lXA" id="Vkd-I3-JXm"/>
                         <outlet property="collectionView" destination="Gdj-zO-t5J" id="HH0-6B-IGF"/>
+                        <outlet property="showFavoritesSegmentedControl" destination="K3e-qb-046" id="zl0-gT-uRN"/>
                         <segue destination="0Pi-rA-P98" kind="show" identifier="showStaffMember" id="RW8-mK-J2P"/>
                     </connections>
                 </viewController>

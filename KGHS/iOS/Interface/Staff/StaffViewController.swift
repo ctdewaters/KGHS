@@ -14,6 +14,7 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     //MARK: - IBOutlets.
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
+    @IBOutlet weak var showFavoritesSegmentedControl: UISegmentedControl!
     
     //MARK: - Properties.
     ///The fetched staff dictionary.
@@ -24,6 +25,9 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     ///The favorited staff members.
     var favoritedStaff = [Staff]()
+    
+    ///The filtered favorited staff.
+    var filteredFavoritedStaff = [Staff]()
     
     ///The filtered search staff to display.
     var filteredSearchStaff = [Staff.Department: [Staff]]()
@@ -42,6 +46,13 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     ///The view controller previewing object.
     var currentViewControllerPreviewing: UIViewControllerPreviewing?
+    
+    var showAll: Bool {
+        if self.showFavoritesSegmentedControl.selectedSegmentIndex == 0 {
+            return true
+        }
+        return false
+    }
     
     ///The global instance.
     public static var global: StaffViewController?
@@ -129,7 +140,7 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
             self.fetchedStaff = serverStaff
             self.fetchedStaffKeys = serverDepartments
             
-            self.collectionView.reloadData()
+            self.reloadCollectionView()
             
             //Filter favorited staff.
             DispatchQueue.global(qos: .background).async {
@@ -149,16 +160,47 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
             self.activityIndicator.isHidden = true
         }
     }
+    
+    ///Reloads the collection view with preretrieved data.
+    func reloadCollectionView() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            
+//            if !self.showAll && self.favoritedEvents.count == 0 {
+//                //Show no favorited events alert.
+//                self.present(noEventsAlertViewWithTitle: "No Favorited Events", andCaption: "Tap the star icon after selecting an event to favorite it.")
+//            }
+//            else if !self.isLoading && self.showAll && self.events.count == 0  {
+//                self.present(noEventsAlertViewWithTitle: "No Events Found", andCaption: "Could not retrieve calendar events. Please try again.")
+//            }
+//            else {
+//                self.dismissNoEventsAlertView()
+//            }
+        }
+    }
+
+    
+    //MARK: - Segmented Control.
+    @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        self.reloadCollectionView()
+    }
+    
 
     //MARK: - `UICollectionView` functions.
     //Number of sections.
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.isSearching ? self.filteredSearchStaff.keys.count : self.fetchedStaff.keys.count
+        if self.showAll {
+            return self.isSearching ? self.filteredSearchStaff.keys.count : self.fetchedStaff.keys.count
+        }
+        return 1
     }
     
     //Number of cells in a section.
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.isSearching ? self.filteredSearchStaff[self.filteredSearchStaffKeys[section]]?.count ?? 0 : self.fetchedStaff[self.fetchedStaffKeys[section]]?.count ?? 0
+        if self.showAll {
+            return self.isSearching ? self.filteredSearchStaff[self.filteredSearchStaffKeys[section]]?.count ?? 0 : self.fetchedStaff[self.fetchedStaffKeys[section]]?.count ?? 0
+        }
+        return self.isSearching ? self.filteredFavoritedStaff.count : self.favoritedStaff.count
     }
     
     //Header view.
@@ -170,18 +212,7 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "staffCell", for: indexPath) as! StaffCollectionViewCell
         
-        if self.isSearching {
-            //Retreive the staff member from the filtered collections.
-            if let staffMember = self.filteredSearchStaff[self.filteredSearchStaffKeys[indexPath.section]]?[indexPath.item] {
-                cell.setup(withStaffMember: staffMember)
-            }
-        }
-        else {
-            //Not searching.
-            if let staffMember = self.fetchedStaff[self.fetchedStaffKeys[indexPath.section]]?[indexPath.item] {
-                cell.setup(withStaffMember: staffMember)
-            }
-        }
+        cell.setup(withStaffMember: self.staffMember(forIndexPath: indexPath))
         return cell
     }
     
@@ -222,11 +253,8 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     //Selection.
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let key = self.isSearching ? self.filteredSearchStaffKeys[indexPath.section] : self.fetchedStaffKeys[indexPath.section]
-        if let staffMember = self.isSearching ? self.filteredSearchStaff[key]?[indexPath.item] : self.fetchedStaff[key]?[indexPath.item] {
-            self.selectedStaffMember = staffMember
-            self.performSegue(withIdentifier: "showStaffMember", sender: self)
-        }
+        self.selectedStaffMember = self.staffMember(forIndexPath: indexPath)
+        self.performSegue(withIdentifier: "showStaffMember", sender: self)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -248,17 +276,22 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.currentViewControllerPreviewing = self.searchController?.registerForPreviewing(with: self, sourceView: self.collectionView)
         
         let searchBarText = searchBar.text ?? ""
+        
+        let showAll = self.showAll
         DispatchQueue.global(qos: .background).async {
-            let filteredData = self.filterStaff(withSearchText: searchBarText)
-            
-            //Set the filtered collections to the filtered data.
-            self.filteredSearchStaffKeys = filteredData.keys
-            self.filteredSearchStaff = filteredData.staff
-
-            //Reload collection view in main thread.
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
+            if showAll {
+                let filteredData = self.filterStaff(withSearchText: searchBarText)
+                
+                //Set the filtered collections to the filtered data.
+                self.filteredSearchStaffKeys = filteredData.keys
+                self.filteredSearchStaff = filteredData.staff
             }
+            else {
+                self.filteredFavoritedStaff = self.filterFavoritedStaff(withSearchText: searchBarText)
+            }
+
+            //Reload collection view.
+            self.reloadCollectionView()
         }
     }
     
@@ -275,26 +308,31 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.filteredSearchStaffKeys.removeAll()
         
         //Reload collection view data.
-        self.collectionView.reloadData()
+        self.reloadCollectionView()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let showAll = self.showAll
+        
         //Run in background thread.
         DispatchQueue.global(qos: .background).async {
-            let filteredData = self.filterStaff(withSearchText: searchText)
-            
-            //Set the filtered collections to the filtered data.
-            self.filteredSearchStaffKeys = filteredData.keys
-            self.filteredSearchStaff = filteredData.staff
-            
-            //Reload collection view in main thread.
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
+            if showAll {
+                let filteredData = self.filterStaff(withSearchText: searchText)
+                
+                //Set the filtered collections to the filtered data.
+                self.filteredSearchStaffKeys = filteredData.keys
+                self.filteredSearchStaff = filteredData.staff
             }
+            else {
+                self.filteredFavoritedStaff = self.filterFavoritedStaff(withSearchText: searchText)
+            }
+
+            //Reload collection view in main thread.
+            self.reloadCollectionView()
         }
     }
     
-    //MARK: - Event filtering.
+    //MARK: - Staff filtering.
     private func filterStaff(withSearchText searchText: String) -> (staff: [Staff.Department: [Staff]], keys: [Staff.Department]) {
         //If search text contains no characters, show all events.
         if searchText == "" {
@@ -326,6 +364,19 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         return (staff: staff, keys: keys)
     }
     
+    private func filterFavoritedStaff(withSearchText searchText: String) -> [Staff] {
+        //If search text contains no characters, show all events.
+        if searchText == "" {
+            return self.favoritedStaff
+        }
+        
+        let lowercasedSearchText = searchText.lowercased()
+        
+        return favoritedStaff.filter {
+            $0.name?.lowercased().contains(lowercasedSearchText) ?? false
+        }
+    }
+    
     //MARK: - `UIViewControllerPreviewingDelegate`.
     //Peek.
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
@@ -339,10 +390,7 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         
         previewingContext.sourceRect = cell.frame
         
-        let key = self.isSearching ? self.filteredSearchStaffKeys[indexPath.section] : self.fetchedStaffKeys[indexPath.section]
-        if let staffMember = self.isSearching ? self.filteredSearchStaff[key]?[indexPath.item] : self.fetchedStaff[key]?[indexPath.item] {
-            StaffDetailViewController.shared.staffMember = staffMember
-        }
+        StaffDetailViewController.shared.staffMember = self.staffMember(forIndexPath: indexPath)
 
         return StaffDetailViewController.shared
     }
@@ -350,6 +398,23 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     //Pop.
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         self.navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
+    
+    //MARK: - Staff Member Retrieval.
+    ///Retrieves a staff member, given an index.
+    func staffMember(forIndexPath indexPath: IndexPath) -> Staff {
+        if self.isSearching {
+            if self.showAll {
+                let key = self.filteredSearchStaffKeys[indexPath.section]
+                return self.filteredSearchStaff[key]![indexPath.item]
+            }
+            return self.filteredFavoritedStaff[indexPath.item]
+        }
+        else if self.showAll {
+            let key = self.fetchedStaffKeys[indexPath.section]
+            return self.fetchedStaff[key]![indexPath.item]
+        }
+        return self.favoritedStaff[indexPath.item]
     }
 
     //MARK: - Portrait detection.
@@ -362,4 +427,3 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
 
 }
-

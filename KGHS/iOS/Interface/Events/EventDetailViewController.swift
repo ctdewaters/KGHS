@@ -117,6 +117,13 @@ class EventDetailViewController: UIViewController {
         }
         
         self.favoriteButton.image = event.isFavorited ?  UIImage(named: "favoriteEmpty") : UIImage(named: "favoriteFilled")
+        
+        if event.isFavorited {
+            Haptics.shared.sendImpactHaptic(withStyle: .light)
+        }
+        else {
+            Haptics.shared.sendImpactHaptic(withStyle: .heavy)
+        }
 
         DispatchQueue.global(qos: .background).async {
             self.event?.favorite()

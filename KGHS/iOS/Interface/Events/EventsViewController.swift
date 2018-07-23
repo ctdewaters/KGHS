@@ -189,6 +189,8 @@ class EventsViewController: UIViewController, UICollectionViewDataSource, UIColl
     func present(noEventsAlertViewWithTitle title: String, andCaption caption: String) {
         self.noEventsTitleLabel.text = title
         self.noEventsCaptionLabel.text = caption
+        self.noEventsTitleLabel.textColor = .black
+        self.noEventsCaptionLabel.textColor = .darkGray
         self.noEventsAlertView.isHidden = false
     }
     

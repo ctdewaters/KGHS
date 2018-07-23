@@ -12,6 +12,7 @@
 		B83809AA20FE27CA00A45DF9 /* StaffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809A820FE27CA00A45DF9 /* StaffViewController.swift */; };
 		B83809AC20FE2D0C00A45DF9 /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809AB20FE2D0C00A45DF9 /* Staff.swift */; };
 		B83809B120FE2D6C00A45DF9 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809B020FE2D6C00A45DF9 /* Event.swift */; };
+		B84FB3F621061BFE005443AC /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84FB3F521061BFE005443AC /* Haptics.swift */; };
 		B8CDF0DD21022BA500CA749F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CDF0DC21022BA500CA749F /* Settings.swift */; };
 		B8CDF0DF2102615D00CA749F /* StaffDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CDF0DE2102615D00CA749F /* StaffDetailViewController.swift */; };
 		B8D4895220FF6A4B00655A25 /* MXLCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4894820FF6A4B00655A25 /* MXLCalendarManager.m */; };
@@ -38,6 +39,7 @@
 		B83809A820FE27CA00A45DF9 /* StaffViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaffViewController.swift; sourceTree = "<group>"; };
 		B83809AB20FE2D0C00A45DF9 /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
 		B83809B020FE2D6C00A45DF9 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		B84FB3F521061BFE005443AC /* Haptics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		B8CDF0DC21022BA500CA749F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		B8CDF0DE2102615D00CA749F /* StaffDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffDetailViewController.swift; sourceTree = "<group>"; };
 		B8D4894820FF6A4B00655A25 /* MXLCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendarManager.m; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		B83809AE20FE2D1500A45DF9 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				B84FB3F521061BFE005443AC /* Haptics.swift */,
 				B8D4895A20FF782500655A25 /* Events */,
 				B8D4895E20FF876A00655A25 /* Staff */,
 				B8EC172020FE5D7700B80763 /* PowerSchoolViewController.swift */,
@@ -328,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B84FB3F621061BFE005443AC /* Haptics.swift in Sources */,
 				B8F0CC0D203DC5E800E7405A /* AppDelegate.swift in Sources */,
 				B8D4896020FF877A00655A25 /* StaffCollectionViewCell.swift in Sources */,
 				B8D4895C20FF783800655A25 /* EventCollectionViewCell.swift in Sources */,

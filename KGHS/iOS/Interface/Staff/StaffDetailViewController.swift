@@ -100,6 +100,14 @@ class StaffDetailViewController: UIViewController {
         
         self.favoriteButton.image = staffMember.isFavorited ?  UIImage(named: "favoriteEmpty") : UIImage(named: "favoriteFilled")
         
+        if staffMember.isFavorited {
+            Haptics.shared.sendImpactHaptic(withStyle: .light)
+        }
+        else {
+            Haptics.shared.sendImpactHaptic(withStyle: .heavy)
+        }
+
+        
         DispatchQueue.global(qos: .background).async {
             staffMember.favorite()
             //Update global staff view controller favorited staff array.
@@ -111,6 +119,7 @@ class StaffDetailViewController: UIViewController {
                 })
             }
             StaffViewController.global?.favoritedStaff = filteredFavoriteStaff
+            StaffViewController.global?.reloadCollectionView()
         }
     }
 }
