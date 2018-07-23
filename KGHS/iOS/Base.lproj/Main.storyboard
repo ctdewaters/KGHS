@@ -368,14 +368,6 @@
                                 <exclude reference="qGz-pp-5jA"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="1Oa-O8-swE"/>
-                                <exclude reference="GOM-cb-PCn"/>
-                                <exclude reference="Yb0-hJ-anm"/>
-                                <exclude reference="boF-xd-Vxh"/>
-                                <exclude reference="g4k-Yt-QlK"/>
-                                <exclude reference="k9c-Or-PGY"/>
-                                <exclude reference="nQa-jN-kF2"/>
-                                <exclude reference="ojq-nL-11d"/>
                                 <exclude reference="VqU-TO-yMJ"/>
                                 <exclude reference="W2n-Pd-Tcm"/>
                                 <exclude reference="bn5-RR-ksf"/>
@@ -387,6 +379,14 @@
                                 <exclude reference="3k1-Sm-IPb"/>
                                 <exclude reference="GXh-Rr-zHR"/>
                                 <exclude reference="hfh-5u-6YI"/>
+                                <exclude reference="1Oa-O8-swE"/>
+                                <exclude reference="GOM-cb-PCn"/>
+                                <exclude reference="Yb0-hJ-anm"/>
+                                <exclude reference="boF-xd-Vxh"/>
+                                <exclude reference="g4k-Yt-QlK"/>
+                                <exclude reference="k9c-Or-PGY"/>
+                                <exclude reference="nQa-jN-kF2"/>
+                                <exclude reference="ojq-nL-11d"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -394,14 +394,6 @@
                                 <include reference="qGz-pp-5jA"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="1Oa-O8-swE"/>
-                                <include reference="GOM-cb-PCn"/>
-                                <include reference="Yb0-hJ-anm"/>
-                                <include reference="boF-xd-Vxh"/>
-                                <include reference="g4k-Yt-QlK"/>
-                                <exclude reference="k9c-Or-PGY"/>
-                                <include reference="nQa-jN-kF2"/>
-                                <exclude reference="ojq-nL-11d"/>
                                 <exclude reference="5BW-Kt-gd6"/>
                                 <exclude reference="73K-yS-cck"/>
                                 <exclude reference="TZ4-Yz-fWi"/>
@@ -424,6 +416,14 @@
                                 <exclude reference="LFF-uu-Qch"/>
                                 <include reference="hfh-5u-6YI"/>
                                 <exclude reference="pYr-Sn-lX5"/>
+                                <exclude reference="1Oa-O8-swE"/>
+                                <include reference="GOM-cb-PCn"/>
+                                <include reference="Yb0-hJ-anm"/>
+                                <include reference="boF-xd-Vxh"/>
+                                <include reference="g4k-Yt-QlK"/>
+                                <exclude reference="k9c-Or-PGY"/>
+                                <include reference="nQa-jN-kF2"/>
+                                <exclude reference="ojq-nL-11d"/>
                             </mask>
                         </variation>
                     </view>
@@ -463,13 +463,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zUb-tS-64N">
                                     <size key="itemSize" width="330" height="101"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="38"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="staffCell" id="Ofj-bi-hde" customClass="StaffCollectionViewCell" customModule="KGHS" customModuleProvider="target">
-                                        <rect key="frame" x="22.666666666666668" y="0.0" width="330" height="70"/>
+                                        <rect key="frame" x="22.666666666666668" y="38" width="330" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="330" height="70"/>
@@ -532,6 +532,28 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="sectionHeader" id="aFY-eA-04B" customClass="SectionHeader" customModule="KGHS" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="38"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rPY-ZK-AZv">
+                                            <rect key="frame" x="24" y="8" width="343" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstItem="rPY-ZK-AZv" firstAttribute="trailing" secondItem="aFY-eA-04B" secondAttribute="trailingMargin" id="1qb-ON-kgb"/>
+                                        <constraint firstItem="rPY-ZK-AZv" firstAttribute="leading" secondItem="aFY-eA-04B" secondAttribute="leadingMargin" constant="16" id="Fww-Mw-vHl"/>
+                                        <constraint firstItem="rPY-ZK-AZv" firstAttribute="top" secondItem="aFY-eA-04B" secondAttribute="topMargin" id="IKV-vo-90E"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="rPY-ZK-AZv" secondAttribute="bottom" id="YQQ-ft-7Ni"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="sectionHeaderLabel" destination="rPY-ZK-AZv" id="y1g-Qm-CSY"/>
+                                    </connections>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="8rJ-Kc-sve" id="oix-38-WTC"/>
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="DVd-LF-cEp"/>

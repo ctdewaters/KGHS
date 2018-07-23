@@ -55,10 +55,10 @@ class StaffDetailViewController: UIViewController, SFSafariViewControllerDelegat
         self.favoriteButton.image = (self.staffMember?.isFavorited ?? false) ? UIImage(named: "favoriteFilled") : UIImage(named: "favoriteEmpty")
         
         //Button title text.
-        if self.staffMember?.websiteURL == nil {
+        if self.staffMember?.websiteURL == "" {
             self.viewWebpageButton.isHidden = true
         }
-        if self.staffMember?.email == nil || !MFMailComposeViewController.canSendMail() {
+        if self.staffMember?.email == "" || !MFMailComposeViewController.canSendMail() {
             self.sendEmailButton.isHidden = true
         }
         
@@ -87,6 +87,14 @@ class StaffDetailViewController: UIViewController, SFSafariViewControllerDelegat
         
         StaffDetailViewController.shared = mainStoryboard.instantiateViewController(withIdentifier: "staffDetailVC") as! StaffDetailViewController
     }
+    
+    override var previewActionItems: [UIPreviewActionItem] {
+        let favoriteAction = UIPreviewAction(title: (self.staffMember?.isFavorited ?? false) ? "Unfavorite" : "Favorite", style: .default) { (action, viewController) in
+            self.favorite(self)
+        }
+        return [favoriteAction]
+    }
+
     
     //MARK: - Portrait detection.
     ///Returns true if the device is currently portrait.

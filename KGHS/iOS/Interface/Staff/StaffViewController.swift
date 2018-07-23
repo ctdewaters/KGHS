@@ -228,9 +228,15 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     //Header view.
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        return UICollectionReusableView()
-//    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "sectionHeader", for: indexPath) as? SectionHeader{
+            if self.showAll {
+                sectionHeader.sectionHeaderLabel.text = self.isSearching ? self.filteredSearchStaffKeys[indexPath.section].displayTitle : self.fetchedStaffKeys[indexPath.section].displayTitle
+            }
+            return sectionHeader
+        }
+        return UICollectionReusableView()
+    }
     
     //Cell setup.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -283,6 +289,13 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if self.showAll {
+            return CGSize(width: self.view.frame.width, height: 38)
+        }
+        return .zero
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -450,4 +463,8 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         return true
     }
 
+}
+
+class SectionHeader: UICollectionReusableView {
+    @IBOutlet weak var sectionHeaderLabel: UILabel!
 }
