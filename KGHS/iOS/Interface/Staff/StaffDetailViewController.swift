@@ -163,6 +163,7 @@ class StaffDetailViewController: UIViewController, SFSafariViewControllerDelegat
         if self.viewWebpageButton.frame.contains(location) {
             //View webpage in a safari view controller.
             if let url = URL(string: self.staffMember?.websiteURL ?? "") {
+                previewingContext.sourceRect = self.viewWebpageButton.frame
                 let safariVC = SFSafariViewController(url: url)
                 safariVC.delegate = self
                 
@@ -170,6 +171,8 @@ class StaffDetailViewController: UIViewController, SFSafariViewControllerDelegat
             }
         }
         else if self.sendEmailButton.frame.contains(location) {
+            previewingContext.sourceRect = self.sendEmailButton.frame
+
             //Send email.
             let composeVC = MFMailComposeViewController()
             composeVC.mailComposeDelegate = self
