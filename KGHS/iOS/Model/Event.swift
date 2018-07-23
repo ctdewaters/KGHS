@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import UserNotifications
 
 ///`Event`: represents an iCal event fetched from the school's ics feed.
 class Event {
@@ -143,6 +143,22 @@ class Event {
         }
     }
     
+    ///`Event.AlertInterval`: specifies an amount of time to alert the user to this event (if favorited) prior to its start date.
+    public enum AlertInterval: String {
+        case week, oneDay, oneHour
+        
+        var titlePrefix: String {
+            switch self {
+            case .week :
+                return "In a Week"
+            case .oneDay :
+                return "In a Day"
+            case .oneHour :
+                return "In an Hour"
+            }
+        }
+    }
+    
     //MARK: - Initialization.
     public init(withMXLCalendarEvent calendarEvent: MXLCalendarEvent) {
         self.calendarEvent = calendarEvent
@@ -153,6 +169,11 @@ class Event {
     public func favorite() {
         if let guid = self.calendarEvent?.eventUniqueID {
             if Event.favoriteIDs.contains(guid) {
+                //Unschedule notifications.
+                AppDelegate.cancel(notificationRequestWithIdentifier: self.notificationID(withInterval: .week))
+                AppDelegate.cancel(notificationRequestWithIdentifier: self.notificationID(withInterval: .oneDay))
+                AppDelegate.cancel(notificationRequestWithIdentifier: self.notificationID(withInterval: .oneHour))
+
                 //Unfavorite.
                 for i in 0..<Event.favoriteIDs.count {
                     if Event.favoriteIDs[i] == guid {
@@ -166,8 +187,47 @@ class Event {
                 //Favorite.
                 Event.favoriteIDs.append(guid)
                 self.isFavorited = true
+                
+                //Set notifications.
+                if AppDelegate.notificationSettings?.authorizationStatus == .authorized {
+                    if Settings.weekNotificationsEnabled {
+                        let content = self.notificationContent(withAlertInterval: .week)
+                        
+                        let sendDate = (self.calendarEvent?.eventStartDate ?? Date()).add(days: -7)!
+                        if Date().compare(sendDate) == .orderedAscending {
+                            AppDelegate.schedule(localNotificationWithContent: content, withIdentifier: self.notificationID(withInterval: .week), andSendDate: sendDate)
+                        }
+                    }
+                    if Settings.dayNotificationsEnabled {
+                        let content = self.notificationContent(withAlertInterval: .oneDay)
+                        let sendDate =  (self.calendarEvent?.eventStartDate ?? Date()).add(days: -1)!
+                        if Date().compare(sendDate) == .orderedAscending {
+                            AppDelegate.schedule(localNotificationWithContent: content, withIdentifier: self.notificationID(withInterval: .oneDay), andSendDate: sendDate)
+                        }
+                    }
+                    if Settings.hourNotificationsEnabled {
+                        let content = self.notificationContent(withAlertInterval: .oneHour)
+                        let sendDate =  (self.calendarEvent?.eventStartDate ?? Date()).add(hours: -1)!
+                        if Date().compare(sendDate) == .orderedAscending {
+                            AppDelegate.schedule(localNotificationWithContent: content, withIdentifier: self.notificationID(withInterval: .oneHour), andSendDate: sendDate)
+                        }
+                    }
+                }
             }
         }
+    }
+    
+    //MARK: - Notifications
+    func notificationContent(withAlertInterval alertInterval: AlertInterval) -> UNNotificationContent {
+        let content = UNMutableNotificationContent()
+        content.title = "\(self.calendarEvent?.eventSummary ?? "")"
+        content.subtitle = "\(alertInterval.titlePrefix)"
+        content.body = self.calendarEvent?.eventDescription ?? ""
+        return content
+    }
+    
+    func notificationID(withInterval alertInterval: AlertInterval) -> String {
+        return "\(self.calendarEvent?.eventUniqueID ?? "")-\(alertInterval.rawValue)"
     }
     
     //MARK: - Retrieval.

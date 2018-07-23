@@ -213,6 +213,21 @@
                                 </view>
                                 <blurEffect style="extraLight"/>
                             </visualEffectView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hM-1a-4a9">
+                                <rect key="frame" x="112.66666666666669" y="375.66666666666669" width="150" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="kre-U5-cVs"/>
+                                    <constraint firstAttribute="height" constant="40" id="sy5-qT-CvL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <state key="normal" title="Add to Calendar">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionButtonPressed:" destination="b28-PS-ykX" eventType="touchUpInside" id="QJT-w5-La8"/>
+                                </connections>
+                            </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Oue-ml-6di">
                                 <rect key="frame" x="16" y="156" width="100" height="100"/>
                                 <color key="backgroundColor" red="0.1215686277" green="0.1294117719" blue="0.1411764771" alpha="0.15033560739436619" colorSpace="custom" customColorSpace="sRGB"/>
@@ -316,6 +331,7 @@
                             <constraint firstItem="0zJ-y0-Cw7" firstAttribute="top" secondItem="2T4-tB-1OQ" secondAttribute="bottom" constant="16" id="LFF-uu-Qch"/>
                             <constraint firstItem="XoM-6M-c3a" firstAttribute="leading" secondItem="ytf-6Z-b9a" secondAttribute="leading" id="Ncc-Eu-YxN"/>
                             <constraint firstItem="Oue-ml-6di" firstAttribute="top" secondItem="zaA-Oq-Qf0" secondAttribute="top" constant="16" id="RIH-OC-nQp"/>
+                            <constraint firstItem="3hM-1a-4a9" firstAttribute="top" secondItem="0zJ-y0-Cw7" secondAttribute="bottom" constant="20" id="RJt-ds-txc"/>
                             <constraint firstItem="zaA-Oq-Qf0" firstAttribute="trailing" secondItem="XoM-6M-c3a" secondAttribute="trailing" constant="16" id="TZ4-Yz-fWi"/>
                             <constraint firstItem="zaA-Oq-Qf0" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0zJ-y0-Cw7" secondAttribute="bottom" constant="16" id="VqU-TO-yMJ"/>
                             <constraint firstItem="ytf-6Z-b9a" firstAttribute="trailing" secondItem="dHo-4D-q6n" secondAttribute="trailing" id="W2n-Pd-Tcm"/>
@@ -342,6 +358,7 @@
                             <constraint firstItem="0zJ-y0-Cw7" firstAttribute="leading" secondItem="zaA-Oq-Qf0" secondAttribute="leading" constant="16" id="pYr-Sn-lX5"/>
                             <constraint firstItem="Ior-Dy-tb4" firstAttribute="height" secondItem="2HR-bi-eGu" secondAttribute="height" id="q8y-Yv-pGU"/>
                             <constraint firstItem="dHo-4D-q6n" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="Oue-ml-6di" secondAttribute="bottom" id="tIg-kM-KMP"/>
+                            <constraint firstItem="3hM-1a-4a9" firstAttribute="centerX" secondItem="0zJ-y0-Cw7" secondAttribute="centerX" id="vLI-s2-h8O"/>
                             <constraint firstItem="ytf-6Z-b9a" firstAttribute="top" secondItem="Oue-ml-6di" secondAttribute="bottom" constant="10" id="wjZ-k5-s1G"/>
                             <constraint firstItem="Ior-Dy-tb4" firstAttribute="width" secondItem="2HR-bi-eGu" secondAttribute="width" id="zA5-9T-TyK"/>
                         </constraints>
@@ -351,6 +368,14 @@
                                 <exclude reference="qGz-pp-5jA"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="1Oa-O8-swE"/>
+                                <exclude reference="GOM-cb-PCn"/>
+                                <exclude reference="Yb0-hJ-anm"/>
+                                <exclude reference="boF-xd-Vxh"/>
+                                <exclude reference="g4k-Yt-QlK"/>
+                                <exclude reference="k9c-Or-PGY"/>
+                                <exclude reference="nQa-jN-kF2"/>
+                                <exclude reference="ojq-nL-11d"/>
                                 <exclude reference="VqU-TO-yMJ"/>
                                 <exclude reference="W2n-Pd-Tcm"/>
                                 <exclude reference="bn5-RR-ksf"/>
@@ -362,14 +387,6 @@
                                 <exclude reference="3k1-Sm-IPb"/>
                                 <exclude reference="GXh-Rr-zHR"/>
                                 <exclude reference="hfh-5u-6YI"/>
-                                <exclude reference="1Oa-O8-swE"/>
-                                <exclude reference="GOM-cb-PCn"/>
-                                <exclude reference="Yb0-hJ-anm"/>
-                                <exclude reference="boF-xd-Vxh"/>
-                                <exclude reference="g4k-Yt-QlK"/>
-                                <exclude reference="k9c-Or-PGY"/>
-                                <exclude reference="nQa-jN-kF2"/>
-                                <exclude reference="ojq-nL-11d"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
@@ -377,6 +394,14 @@
                                 <include reference="qGz-pp-5jA"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="1Oa-O8-swE"/>
+                                <include reference="GOM-cb-PCn"/>
+                                <include reference="Yb0-hJ-anm"/>
+                                <include reference="boF-xd-Vxh"/>
+                                <include reference="g4k-Yt-QlK"/>
+                                <exclude reference="k9c-Or-PGY"/>
+                                <include reference="nQa-jN-kF2"/>
+                                <exclude reference="ojq-nL-11d"/>
                                 <exclude reference="5BW-Kt-gd6"/>
                                 <exclude reference="73K-yS-cck"/>
                                 <exclude reference="TZ4-Yz-fWi"/>
@@ -399,14 +424,6 @@
                                 <exclude reference="LFF-uu-Qch"/>
                                 <include reference="hfh-5u-6YI"/>
                                 <exclude reference="pYr-Sn-lX5"/>
-                                <exclude reference="1Oa-O8-swE"/>
-                                <include reference="GOM-cb-PCn"/>
-                                <include reference="Yb0-hJ-anm"/>
-                                <include reference="boF-xd-Vxh"/>
-                                <include reference="g4k-Yt-QlK"/>
-                                <exclude reference="k9c-Or-PGY"/>
-                                <include reference="nQa-jN-kF2"/>
-                                <exclude reference="ojq-nL-11d"/>
                             </mask>
                         </variation>
                     </view>
@@ -418,6 +435,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addToCalendarButton" destination="3hM-1a-4a9" id="rFB-H2-y08"/>
                         <outlet property="categoryLabel" destination="XoM-6M-c3a" id="6pd-4p-1cB"/>
                         <outlet property="dateLabel" destination="ytf-6Z-b9a" id="xNR-eP-DLd"/>
                         <outlet property="descriptionLabel" destination="0zJ-y0-Cw7" id="Yqy-t2-Eec"/>
@@ -822,7 +840,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcI-H6-6R5">
-                                <rect key="frame" x="112.66666666666669" y="296.66666666666669" width="150" height="40"/>
+                                <rect key="frame" x="112.66666666666669" y="286.66666666666669" width="150" height="40"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="V5R-fx-oT5"/>
@@ -837,7 +855,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aoM-lI-cbF">
-                                <rect key="frame" x="112.66666666666669" y="352.66666666666669" width="150" height="40"/>
+                                <rect key="frame" x="112.66666666666669" y="342.66666666666669" width="150" height="40"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="tmd-me-nqJ"/>
@@ -863,7 +881,7 @@
                         <constraints>
                             <constraint firstItem="wil-L1-uN8" firstAttribute="trailing" secondItem="eLI-rx-Pfc" secondAttribute="trailing" id="3rX-0v-TZW"/>
                             <constraint firstItem="nXN-IJ-2dT" firstAttribute="top" secondItem="7vH-VB-oh3" secondAttribute="bottom" constant="10" id="7f4-IA-Uv4"/>
-                            <constraint firstItem="lcI-H6-6R5" firstAttribute="top" secondItem="nXN-IJ-2dT" secondAttribute="bottom" constant="30" id="898-7A-47w"/>
+                            <constraint firstItem="lcI-H6-6R5" firstAttribute="top" secondItem="nXN-IJ-2dT" secondAttribute="bottom" constant="20" id="898-7A-47w"/>
                             <constraint firstItem="vqy-tG-U5P" firstAttribute="top" secondItem="zyj-85-E2K" secondAttribute="bottom" constant="10" id="8hu-7D-ea9"/>
                             <constraint firstItem="zyj-85-E2K" firstAttribute="leading" secondItem="7vH-VB-oh3" secondAttribute="trailing" constant="8" id="Ela-ag-wJz"/>
                             <constraint firstItem="vqy-tG-U5P" firstAttribute="leading" secondItem="zyj-85-E2K" secondAttribute="leading" id="HSm-yE-NFL"/>

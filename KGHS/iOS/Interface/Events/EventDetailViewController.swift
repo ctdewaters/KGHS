@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EventKit
 
 //`EventDetailViewController`: shows all details of a selected event.
 class EventDetailViewController: UIViewController {
@@ -20,6 +21,7 @@ class EventDetailViewController: UIViewController {
     @IBOutlet weak var verticalSeparator: UIView!
     @IBOutlet weak var horizontalSeparator: UIView!
     @IBOutlet weak var favoriteButton: UIBarButtonItem!
+    @IBOutlet weak var addToCalendarButton: UIButton!
     
     //MARK: - Properties.
     ///The event to display.
@@ -27,6 +29,9 @@ class EventDetailViewController: UIViewController {
     
     ///The shared instance.
     static var shared = mainStoryboard.instantiateViewController(withIdentifier: "eventDetailVC") as! EventDetailViewController
+    
+    ///The event store.
+    let eventStore = EKEventStore()
     
     //MARK: - `UIViewController` overrides.
 
@@ -61,6 +66,8 @@ class EventDetailViewController: UIViewController {
         
         self.favoriteButton.image = (self.event?.isFavorited ?? false) ? UIImage(named: "favoriteFilled") : UIImage(named: "favoriteEmpty")
         
+        self.addToCalendarButton.layer.cornerRadius = 10
+        self.addToCalendarButton.setTitleColor(.blueTheme, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -133,6 +140,75 @@ class EventDetailViewController: UIViewController {
             } ?? []
             
             EventsViewController.global?.reloadCollectionView()
+        }
+        
+        //Check if this is the first event the user has favorited, and if notifications are authorized.
+        if !Settings.favoritedFirstEvent && AppDelegate.notificationSettings?.authorizationStatus == .authorized {
+            Settings.favoritedFirstEvent = true
+            
+            //Send alert explaining how favorited events work.
+            let alertController = UIAlertController(title: "Favoriting Events", message: "When you favorite an event, you will be notified at certain times before it occurs. You can change this in the Settings menu (More -> Settings).", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                alertController.dismiss(animated: true, completion: nil)
+            }))
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func actionButtonPressed(_ sender: UIButton) {
+        if sender == self.addToCalendarButton {
+            //Add event to calendar.
+            self.addEventToCalendar()
+        }
+    }
+    
+    //MARK: - UIAlertController
+    ///Constructs an alert controller with no actions.
+    func alert(title: String, message: String) -> UIAlertController{
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.cancel, handler: { action->Void in
+            self.dismiss(animated: true, completion: nil)
+        })
+        alert.addAction(cancelAction)
+        return alert
+    }
+
+    
+    //MARK: - EventKit
+    //Adds the event to the user's default calendar.
+    func addEventToCalendar(){
+        switch EKEventStore.authorizationStatus(for: EKEntityType.event){
+        case .authorized:
+            print("Authorized")
+            self.insertEvent(intoEventStore: self.eventStore)
+        case .denied:
+            print("Denied")
+            self.present(self.alert(title: "Calendar Unavailable", message: "Couldn't add the event to your calendar."), animated: true, completion: nil)
+        case .notDetermined:
+            eventStore.requestAccess(to: .event) { (granted, error) in
+                if granted {
+                    self.insertEvent(intoEventStore: self.eventStore)
+                }
+            }
+        default:
+            break
+        }
+    }
+    
+    func insertEvent(intoEventStore store: EKEventStore){
+        if let event = self.event?.calendarEvent?.convertToEKEvent(on: self.event?.calendarEvent?.eventStartDate ?? Date(), store: store) {
+            event.calendar = store.defaultCalendarForNewEvents
+            event.startDate = self.event?.calendarEvent?.eventStartDate
+            event.endDate = self.event?.calendarEvent?.eventEndDate
+            
+            do {
+                try store.save(event, span: EKSpan.thisEvent)
+                self.present(self.alert(title: "Event Added To Calendar", message: ""), animated: true, completion: nil)
+            }
+            catch {
+                print(error.localizedDescription)
+                self.present(self.alert(title: "Error Adding Event", message: ""), animated: true, completion: nil)
+            }
         }
     }
 }

@@ -14,22 +14,49 @@ class Settings {
     private static let userDefaults = UserDefaults.standard
     
     //MARK: - Completed first session.
-    public var completedFirstSession: Bool {
+    public static var favoritedFirstEvent: Bool {
         set {
-            Settings.userDefaults.set(newValue, forKey: "completedFirstSession")
+            Settings.userDefaults.set(newValue, forKey: "favoritedFirstEvent")
         }
         get {
-            return Settings.userDefaults.bool(forKey: "completedFirstSession")
+            return Settings.userDefaults.bool(forKey: "favoritedFirstEvent")
         }
     }
     
     //MARK: - Notification Settings.
-    public var notifyFavoriteEvents: Bool {
+    public static var notifyFavoriteEvents: Bool {
         set {
             Settings.userDefaults.set(newValue, forKey: "notifyFavoriteEvents")
         }
         get {
             return Settings.userDefaults.bool(forKey: "notifyFavoriteEvents")
+        }
+    }
+
+    public static var weekNotificationsEnabled: Bool {
+        set {
+            Settings.userDefaults.set(newValue, forKey: "weekNotificationsEnabled")
+        }
+        get {
+            return Settings.userDefaults.bool(forKey: "weekNotificationsEnabled")
+        }
+    }
+    
+    public static var dayNotificationsEnabled: Bool {
+        set {
+            Settings.userDefaults.set(newValue, forKey: "dayNotificationsEnabled")
+        }
+        get {
+            return Settings.userDefaults.bool(forKey: "dayNotificationsEnabled")
+        }
+    }
+
+    public static var hourNotificationsEnabled: Bool {
+        set {
+            Settings.userDefaults.set(newValue, forKey: "hourNotificationsEnabled")
+        }
+        get {
+            return Settings.userDefaults.bool(forKey: "hourNotificationsEnabled")
         }
     }
 
