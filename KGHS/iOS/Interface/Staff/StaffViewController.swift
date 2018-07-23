@@ -16,6 +16,11 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
     @IBOutlet weak var showFavoritesSegmentedControl: UISegmentedControl!
     
+    //No staff alert view.
+    @IBOutlet weak var noStaffAlertView: UIView!
+    @IBOutlet weak var noStaffTitleLabel: UILabel!
+    @IBOutlet weak var noStaffCaptionLabel: UILabel!
+    
     //MARK: - Properties.
     ///The fetched staff dictionary.
     var fetchedStaff = [Staff.Department: [Staff]]()
@@ -43,6 +48,9 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     ///The search controller.
     private var searchController: UISearchController?
+    
+    ///True if loading staff members.
+    var isLoading = false
     
     ///The view controller previewing object.
     var currentViewControllerPreviewing: UIViewControllerPreviewing?
@@ -124,11 +132,14 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
     
     //MARK: - Reloading.
     func reload() {
+        self.isLoading = true
         //Animate activity indicator.
         self.activityIndicator.isHidden = false
         self.activityIndicator.startAnimating()
         
         Staff.retrieveAll { (serverStaff, serverDepartments) in
+            self.isLoading = false
+            
             guard let serverStaff = serverStaff, let serverDepartments = serverDepartments else {
                 //Remove activity indicator.
                 self.activityIndicator.stopAnimating()
@@ -166,17 +177,30 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         DispatchQueue.main.async {
             self.collectionView.reloadData()
             
-//            if !self.showAll && self.favoritedEvents.count == 0 {
-//                //Show no favorited events alert.
-//                self.present(noEventsAlertViewWithTitle: "No Favorited Events", andCaption: "Tap the star icon after selecting an event to favorite it.")
-//            }
-//            else if !self.isLoading && self.showAll && self.events.count == 0  {
-//                self.present(noEventsAlertViewWithTitle: "No Events Found", andCaption: "Could not retrieve calendar events. Please try again.")
-//            }
-//            else {
-//                self.dismissNoEventsAlertView()
-//            }
+            if !self.showAll && self.favoritedStaff.count == 0 {
+                //Show no favorited events alert.
+                self.present(noStaffAlertViewWithTitle: "No Favorited Staff", andCaption: "Tap the star icon after selecting a staff member to favorite.")
+                return
+            }
+            else if !self.isLoading && self.showAll && self.fetchedStaff.keys.count == 0  {
+                self.present(noStaffAlertViewWithTitle: "No Staff Found", andCaption: "Could not retrieve staff members. Please try again.")
+                return
+            }
+            self.dismissNoStaffAlertView()
         }
+    }
+
+    //MARK: - No Staff Alert View.
+    ///Presents the no staff alert view.
+    func present(noStaffAlertViewWithTitle title: String, andCaption caption: String) {
+        self.noStaffTitleLabel.text = title
+        self.noStaffCaptionLabel.text = caption
+        self.noStaffAlertView.isHidden = false
+    }
+    
+    ///Dismisses the no events alert view.
+    func dismissNoStaffAlertView() {
+        self.noStaffAlertView.isHidden = true
     }
 
     

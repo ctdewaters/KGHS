@@ -594,6 +594,9 @@
                     <connections>
                         <outlet property="activityIndicator" destination="ASn-Xb-lXA" id="Vkd-I3-JXm"/>
                         <outlet property="collectionView" destination="Gdj-zO-t5J" id="HH0-6B-IGF"/>
+                        <outlet property="noStaffAlertView" destination="Hug-xw-aOa" id="IcE-dt-jSC"/>
+                        <outlet property="noStaffCaptionLabel" destination="FC9-HJ-rBG" id="x38-nn-faI"/>
+                        <outlet property="noStaffTitleLabel" destination="g0b-bn-zq2" id="roN-qa-zec"/>
                         <outlet property="showFavoritesSegmentedControl" destination="K3e-qb-046" id="zl0-gT-uRN"/>
                         <segue destination="0Pi-rA-P98" kind="show" identifier="showStaffMember" id="RW8-mK-J2P"/>
                     </connections>
