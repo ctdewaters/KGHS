@@ -7,11 +7,22 @@
 //
 
 import UIKit
+import SafariServices
 
-class MoreViewController: UIViewController, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class MoreViewController: UIViewController, SFSafariViewControllerDelegate {
     
     //MARK: - IBOutlets.
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var kghsNewsButton: UIButton!
+    @IBOutlet weak var alumniButton: UIButton!
+    @IBOutlet weak var developerButton: UIButton!
+    @IBOutlet weak var versionLabel: UILabel!
+    @IBOutlet weak var lunchMenusButton: UIButton!
+    
+    
+    //MARK: - Properties.
+    ///The safari view controller.
+    var safariViewController: SFSafariViewController?
     
 
     //MARK: - `UIViewController` overrides.
@@ -19,6 +30,20 @@ class MoreViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.tintColor = .blueTheme
+        
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            self.versionLabel.text = "KGHS v\(version)\n\nCreated by Collin DeWaters."
+        }
+        else {
+            self.versionLabel.isHidden = true
+        }
+        
+        //Button colors.
+        self.alumniButton.setTitleColor(.blueTheme, for: .normal)
+        self.kghsNewsButton.setTitleColor(.blueTheme, for: .normal)
+        self.developerButton.setTitleColor(.blueTheme, for: .normal)
+        self.settingsButton.setTitleColor(.blueTheme, for: .normal)
+        self.lunchMenusButton.setTitleColor(.blueTheme, for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,15 +69,43 @@ class MoreViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
         self.tabBarController?.tabBar.tintColor = .blueTheme
         UIApplication.shared.statusBarStyle = .default
     }
-
     
-    //MARK: - `UICollectionView`
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+    //MARK: - IBAction.
+    @IBAction func buttonSelected(_ sender: UIButton) {
+        if sender == self.alumniButton {
+            if let alumniURL = URL(string: "https://www.alumniclass.com/king-george-high-school-foxes-va/") {
+                self.safariViewController = SFSafariViewController(url: alumniURL)
+                self.safariViewController?.delegate = self
+                self.present(self.safariViewController!, animated: true, completion: nil)
+            }
+        }
+        else if sender == self.kghsNewsButton {
+            if let newsURL = URL(string: "http://www.kghs-kgcs.org/kghs-news") {
+                self.safariViewController = SFSafariViewController(url: newsURL)
+                self.safariViewController?.delegate = self
+                self.present(self.safariViewController!, animated: true, completion: nil)
+            }
+        }
+        else if sender == self.lunchMenusButton {
+            if let menusURL = URL(string: "https://www.schoolnutritionandfitness.com/index.php?sid=1468870899202&page=menus") {
+                self.safariViewController = SFSafariViewController(url: menusURL)
+                self.safariViewController?.delegate = self
+                self.present(self.safariViewController!, animated: true, completion: nil)
+            }
+        }
+        else if sender == self.settingsButton {
+            //Show settings.
+            self.performSegue(withIdentifier: "showSettings", sender: self)
+            
+        }
+        else if sender == self.developerButton {
+            //Show developer info.
+            
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+    //MARK: - SFSafariViewControllerDelegate
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        controller.dismiss(animated: true, completion: nil)
     }
-
 }
