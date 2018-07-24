@@ -86,7 +86,7 @@ class StaffViewController: UIViewController, UICollectionViewDataSource, UIColle
         self.currentViewControllerPreviewing = self.registerForPreviewing(with: self, sourceView: self.collectionView)
         
         //Setup activity indicator.
-        self.activityIndicator.color = .blueTheme
+        self.activityIndicator.color = .yellowTheme
         self.activityIndicator.type = .orbit
 
         //Reload.

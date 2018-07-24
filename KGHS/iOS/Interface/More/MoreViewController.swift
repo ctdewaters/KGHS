@@ -100,7 +100,7 @@ class MoreViewController: UIViewController, SFSafariViewControllerDelegate {
         }
         else if sender == self.developerButton {
             //Show developer info.
-            
+            self.performSegue(withIdentifier: "showDeveloper", sender: self)
         }
     }
     

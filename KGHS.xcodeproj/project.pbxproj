@@ -14,6 +14,7 @@
 		B83809B120FE2D6C00A45DF9 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83809B020FE2D6C00A45DF9 /* Event.swift */; };
 		B84FB3F621061BFE005443AC /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84FB3F521061BFE005443AC /* Haptics.swift */; };
 		B89C9FD22106A3BE000D508B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C9FD12106A3BE000D508B /* SettingsViewController.swift */; };
+		B89C9FD42106A95D000D508B /* DeveloperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89C9FD32106A95D000D508B /* DeveloperViewController.swift */; };
 		B8CDF0DD21022BA500CA749F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CDF0DC21022BA500CA749F /* Settings.swift */; };
 		B8CDF0DF2102615D00CA749F /* StaffDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CDF0DE2102615D00CA749F /* StaffDetailViewController.swift */; };
 		B8D4895220FF6A4B00655A25 /* MXLCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D4894820FF6A4B00655A25 /* MXLCalendarManager.m */; };
@@ -42,6 +43,7 @@
 		B83809B020FE2D6C00A45DF9 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		B84FB3F521061BFE005443AC /* Haptics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		B89C9FD12106A3BE000D508B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		B89C9FD32106A95D000D508B /* DeveloperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperViewController.swift; sourceTree = "<group>"; };
 		B8CDF0DC21022BA500CA749F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		B8CDF0DE2102615D00CA749F /* StaffDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffDetailViewController.swift; sourceTree = "<group>"; };
 		B8D4894820FF6A4B00655A25 /* MXLCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXLCalendarManager.m; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 			children = (
 				B8D48961210109B100655A25 /* MoreViewController.swift */,
 				B89C9FD12106A3BE000D508B /* SettingsViewController.swift */,
+				B89C9FD32106A95D000D508B /* DeveloperViewController.swift */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				B83809A920FE27CA00A45DF9 /* EventsViewController.swift in Sources */,
 				B83809B120FE2D6C00A45DF9 /* Event.swift in Sources */,
 				B8D4895620FF6A4B00655A25 /* MXLCalendarEvent.m in Sources */,
+				B89C9FD42106A95D000D508B /* DeveloperViewController.swift in Sources */,
 				B8D4895420FF6A4B00655A25 /* NSTimeZone+ProperAbbreviation.m in Sources */,
 				B8D4895520FF6A4B00655A25 /* MXLCalendarAttendee.m in Sources */,
 			);
@@ -501,6 +505,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AP48SCT3J2;
 				INFOPLIST_FILE = "$(SRCROOT)/KGHS/iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -523,6 +528,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AP48SCT3J2;
 				INFOPLIST_FILE = "$(SRCROOT)/KGHS/iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
